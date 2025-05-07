@@ -92,10 +92,6 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 93bf2f98.patch # Backport crash fix
-}
-
 build() {
   cmake -B build  -S $pkgname-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
