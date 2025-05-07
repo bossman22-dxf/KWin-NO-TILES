@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwin
-pkgver=6.3.4
+pkgver=6.3.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=4
+pkgrel=1
 pkgdesc='An easy to use, but flexible, composited Window Manager'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -85,7 +85,7 @@ groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
         https://invent.kde.org/plasma/kwin/-/commit/93bf2f98.patch)
 install=$pkgname.install
-sha256sums=('e74a61eccc5d3248dbd620b6c2c7b175013b15ff59e17af70f88aefc082445a5'
+sha256sums=('d71cdacbab35f8139e799fe0013248f68e802ba516411b446d5d66c30bd7e5ec'
             'SKIP'
             'd66a820893c40ec6db2838ef29ac25ec9c7517aadb69c10c7921c504fcafeb6f')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
