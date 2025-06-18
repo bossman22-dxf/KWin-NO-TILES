@@ -1,7 +1,7 @@
 pkgbase = kwin
 	pkgdesc = An easy to use, but flexible, Wayland compositor
 	pkgver = 6.4.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://kde.org/plasma-desktop/
 	install = kwin.install
 	arch = x86_64
@@ -67,7 +67,6 @@ pkgbase = kwin
 	depends = qt6-sensors
 	depends = qt6-svg
 	depends = qt6-tools
-	depends = qt6-wayland
 	depends = systemd-libs
 	depends = wayland
 	depends = xcb-util-cursor
