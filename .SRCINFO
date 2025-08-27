@@ -1,7 +1,7 @@
 pkgbase = kwin
 	pkgdesc = An easy to use, but flexible, Wayland compositor
 	pkgver = 6.4.4
-	pkgrel = 7
+	pkgrel = 8
 	url = https://kde.org/plasma-desktop/
 	install = kwin.install
 	arch = x86_64
