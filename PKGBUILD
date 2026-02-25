@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.6.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=3
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -14,6 +14,7 @@ depends=(aurorae
          breeze
          gcc-libs
          glibc
+         iio-sensor-proxy
          plasma-activities
          kauth
          kcmutils
