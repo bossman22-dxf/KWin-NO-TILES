@@ -63,7 +63,6 @@ depends=(aurorae
          qt6-5compat
          qt6-base
          qt6-declarative
-         qt6-sensors
          qt6-svg
          qt6-tools
          systemd-libs
