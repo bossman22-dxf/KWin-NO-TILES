@@ -8,4 +8,6 @@ May work with other Window managers but you'll need to test that yourself as I h
 Toggle can be found under System Settings - Advanced Window Behaviour labeled "Enable built in window tiling"  
 
 **__Install__**
+
+
 WIP
