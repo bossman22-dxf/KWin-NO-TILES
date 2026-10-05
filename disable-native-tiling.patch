@@ -1,5 +1,5 @@
 --- src/kwin.kcfg	2026-09-08 22:53:35.000000000 +1200
-+++ src/kwin.kcfg	2026-10-05 19:44:03.444206846 +1300
++++ src/kwin.kcfg	2026-10-06 03:05:06.319694408 +1300
 @@ -167,6 +167,9 @@
          <entry name="SnapOnlyWhenOverlapping" type="Bool">
              <default>false</default>
@@ -11,7 +11,7 @@
              <default>0</default>
          </entry>
 --- src/kcms/options/kwinoptions_settings.kcfg	2026-09-08 22:53:35.000000000 +1200
-+++ src/kcms/options/kwinoptions_settings.kcfg	2026-10-05 19:43:16.912487519 +1300
++++ src/kcms/options/kwinoptions_settings.kcfg	2026-10-06 03:05:06.319858032 +1300
 @@ -28,6 +28,10 @@
          <default>false</default>
      </entry>
@@ -24,7 +24,7 @@
          <choices name="PlacementChoices">
              <choice name="Smart"></choice>
 --- src/kcms/options/advanced.ui	2026-09-08 22:53:35.000000000 +1200
-+++ src/kcms/options/advanced.ui	2026-10-05 19:44:03.447206892 +1300
++++ src/kcms/options/advanced.ui	2026-10-06 03:05:06.320148467 +1300
 @@ -71,7 +71,17 @@
       </property>
      </widget>
@@ -62,7 +62,7 @@
       <property name="whatsThis">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This setting controls what happens when an open window located on a Virtual Desktop other than the current one is activated. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Switch to that Virtual Desktop&lt;/span&gt; will switch to the Virtual Desktop where the window is currently located. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Bring window to current Virtual Desktop&lt;/span&gt; will cause the window to jump to the active Virtual Desktop. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
 --- src/options.h	2026-09-08 22:53:35.000000000 +1200
-+++ src/options.h	2026-10-06 02:27:20.363714651 +1300
++++ src/options.h	2026-10-06 03:05:06.320347173 +1300
 @@ -165,6 +165,7 @@
       * Whether a window is tiled to half screen when reaching left or right screen edge while been moved.
       */
@@ -107,7 +107,7 @@
      float electric_border_corner_ratio;
      bool borderless_maximized_windows;
 --- src/options.cpp	2026-09-08 22:53:35.000000000 +1200
-+++ src/options.cpp	2026-10-05 19:43:16.915487565 +1300
++++ src/options.cpp	2026-10-06 03:05:06.320707364 +1300
 @@ -539,6 +539,15 @@
      Q_EMIT electricBorderTilingChanged();
  }
@@ -133,7 +133,25 @@
      setElectricBorderAllScreenCorner(m_settings->electricBorderAllScreenCorner());
      setAllowTearing(m_settings->allowTearing());
 --- src/window.cpp	2026-09-08 22:53:35.000000000 +1200
-+++ src/window.cpp	2026-10-05 19:43:16.915487565 +1300
++++ src/window.cpp	2026-10-06 04:37:23.686246491 +1300
+@@ -1105,7 +1105,7 @@
+             maximize(*maximizeMode, m_electricGeometryRestore);
+         }
+         setElectricBorderMaximizing(false);
+-    } else if (wasMove && (m_interactiveMoveResize.modifiers & Qt::ShiftModifier)) {
++    } else if (options->nativeTilingEnabled() && wasMove && (m_interactiveMoveResize.modifiers & Qt::ShiftModifier)) {
+         setQuickTileMode(QuickTileFlag::Custom, m_interactiveMoveResize.anchor);
+     }
+     setElectricBorderMode(std::nullopt);
+@@ -1242,7 +1242,7 @@
+         }
+ 
+         if (!isRequestedFullScreen()) {
+-            if (modifiers & Qt::ShiftModifier) {
++            if (options->nativeTilingEnabled() && (modifiers & Qt::ShiftModifier)) {
+                 resetQuickTilingMaximizationZones();
+                 const auto &r = quickTileGeometry(QuickTileFlag::Custom, global);
+                 if (r.isEmpty()) {
 @@ -2432,7 +2432,7 @@
  
          RectF area = workspace()->clientArea(MaximizeArea, this, QPointF(xroot, yroot));
@@ -143,7 +161,17 @@
              if (xroot <= area.x() + 20) {
                  tile |= QuickTileFlag::Left;
                  innerBorder = isInScreen(QPoint(area.x() - 1, yroot));
-@@ -3574,6 +3574,10 @@
+@@ -3470,6 +3470,9 @@
+     LogicalOutput *output = workspace()->outputAt(pos);
+ 
+     if (mode & QuickTileFlag::Custom) {
++        if (!options->nativeTilingEnabled()) {
++            return RectF();
++        }
+         Tile *tile = workspace()->rootTile(output)->pick(pos);
+         if (tile) {
+             return tile->windowGeometry();
+@@ -3574,6 +3577,10 @@
  
  void Window::handleQuickTileShortcut(QuickTileMode mode)
  {
@@ -154,7 +182,7 @@
      QPointF tileAtPoint = moveResizeGeometry().center();
      if (mode != QuickTileFlag::None) {
          const QuickTileMode oldMode = requestedQuickTileMode();
-@@ -3638,7 +3642,7 @@
+@@ -3638,7 +3645,7 @@
  
  void Window::handleCustomQuickTileShortcut(QuickTileMode mode)
  {
@@ -163,7 +191,7 @@
          return;
      }
      // if window is not tiled already, set it to nearest one
-@@ -3681,6 +3685,10 @@
+@@ -3681,6 +3688,10 @@
  
  void Window::setQuickTileMode(QuickTileMode mode, const QPointF &tileAtPoint)
  {
@@ -175,7 +203,7 @@
  
      // sanitize the mode, ie. simplify "invalid" combinations
 --- src/placement.cpp	2026-09-08 22:53:35.000000000 +1200
-+++ src/placement.cpp	2026-10-05 19:43:16.915487565 +1300
++++ src/placement.cpp	2026-10-06 03:05:06.321858064 +1300
 @@ -771,7 +771,7 @@
  
  void Workspace::quickTileWindow(QuickTileMode mode)
