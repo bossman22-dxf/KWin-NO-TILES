@@ -1,6 +1,6 @@
-# KWin NOTILES
+# KWin NO TILES
 
-KWin NOTILES is a small Arch Linux package patch for **KWin 6.7.5** that adds a setting to disable KWin's native tiling hooks while leaving the rest of KWin intact.
+KWin NO TILES is a small Arch Linux package patch for **KWin 6.7.5** that adds a setting to disable KWin's native tiling hooks while leaving the rest of KWin intact.
 
 The goal is to let another tool, specifically [**PlasmaZones**](https://github.com/fuddlesworth/PlasmaZones), own tiling behavior without KWin also displaying/using its own native tiling zones.
 
