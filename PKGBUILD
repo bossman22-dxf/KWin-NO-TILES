@@ -1,12 +1,13 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
+# EDITED BY: Bossman22-DXF
 
 pkgname=kwin
 pkgver=6.7.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=3
-pkgdesc='An easy to use, but flexible, Wayland compositor'
+pkgdesc='A Wayland compositor edited by Bossman22'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
