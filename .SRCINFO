@@ -79,6 +79,7 @@ pkgbase = kwin
 	optdepends = plasma-keyboard: virtual keyboard
 	source = https://download.kde.org/stable/plasma/6.7.5/kwin-6.7.5.tar.xz
 	source = https://download.kde.org/stable/plasma/6.7.5/kwin-6.7.5.tar.xz.sig
+	source = disable-native-tiling.patch
 	validpgpkeys = E0A3EB202F8E57528E13E72FD7574483BB57B18D
 	validpgpkeys = 0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D
 	validpgpkeys = D07BD8662C56CB291B316EB2F5675605C74E02CF
@@ -86,5 +87,6 @@ pkgbase = kwin
 	validpgpkeys = 1FA881591C26B276D7A5518EEAAF29B42A678C20
 	sha256sums = 6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2
 	sha256sums = SKIP
+	sha256sums = f476a3c46f15ba78621dd95f1bdc583767d6d46c173e912850008559b3f60314
 
 pkgname = kwin

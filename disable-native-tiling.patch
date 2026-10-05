@@ -1,0 +1,196 @@
+--- src/kwin.kcfg	2026-09-08 22:53:35.000000000 +1200
++++ src/kwin.kcfg	2026-10-05 19:44:03.444206846 +1300
+@@ -167,6 +167,9 @@
+         <entry name="SnapOnlyWhenOverlapping" type="Bool">
+             <default>false</default>
+         </entry>
++        <entry name="NativeTilingEnabled" type="Bool">
++            <default>true</default>
++        </entry>
+         <entry name="ElectricBorders" type="Int">
+             <default>0</default>
+         </entry>
+--- src/kcms/options/kwinoptions_settings.kcfg	2026-09-08 22:53:35.000000000 +1200
++++ src/kcms/options/kwinoptions_settings.kcfg	2026-10-05 19:43:16.912487519 +1300
+@@ -28,6 +28,10 @@
+         <default>false</default>
+     </entry>
+ 
++    <entry key="NativeTilingEnabled" type="Bool">
++        <default>true</default>
++    </entry>
++
+     <entry name="Placement" type="Enum">
+         <choices name="PlacementChoices">
+             <choice name="Smart"></choice>
+--- src/kcms/options/advanced.ui	2026-09-08 22:53:35.000000000 +1200
++++ src/kcms/options/advanced.ui	2026-10-05 19:44:03.447206892 +1300
+@@ -71,7 +71,17 @@
+      </property>
+     </widget>
+    </item>
+-   <item row="2" column="0">
++   <item row="2" column="1">
++    <widget class="QCheckBox" name="kcfg_NativeTilingEnabled">
++     <property name="whatsThis">
++      <string>When turned off, KWin's built-in quick tiling and custom tiling are disabled. Window edge snapping remains controlled by the settings on the Movement page.</string>
++     </property>
++     <property name="text">
++      <string>Enable built-in window tiling</string>
++     </property>
++    </widget>
++   </item>
++   <item row="3" column="0">
+     <widget class="QLabel" name="activationDesktopPolicyLabel">
+      <property name="text">
+       <string>Virtual Desktop behavior:</string>
+@@ -81,14 +91,14 @@
+      </property>
+     </widget>
+    </item>
+-   <item row="2" column="1">
++   <item row="3" column="1">
+     <widget class="QLabel" name="activationDesktopPolicyDescriptionLabel">
+      <property name="text">
+       <string>When activating a window on a different Virtual Desktop:</string>
+      </property>
+     </widget>
+    </item>
+-   <item row="3" column="1">
++   <item row="4" column="1">
+     <widget class="QComboBox" name="kcfg_ActivationDesktopPolicy">
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This setting controls what happens when an open window located on a Virtual Desktop other than the current one is activated. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Switch to that Virtual Desktop&lt;/span&gt; will switch to the Virtual Desktop where the window is currently located. &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Bring window to current Virtual Desktop&lt;/span&gt; will cause the window to jump to the active Virtual Desktop. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+--- src/options.h	2026-09-08 22:53:35.000000000 +1200
++++ src/options.h	2026-10-06 02:27:20.363714651 +1300
+@@ -165,6 +165,7 @@
+      * Whether a window is tiled to half screen when reaching left or right screen edge while been moved.
+      */
+     Q_PROPERTY(bool electricBorderTiling READ electricBorderTiling WRITE setElectricBorderTiling NOTIFY electricBorderTilingChanged)
++    Q_PROPERTY(bool nativeTilingEnabled READ nativeTilingEnabled WRITE setNativeTilingEnabled NOTIFY nativeTilingEnabledChanged)
+     /**
+      * Whether each screen has its own active corners instead of limiting to only four corners across all screens.
+      */
+@@ -600,6 +601,10 @@
+     {
+         return electric_border_tiling;
+     }
++    bool nativeTilingEnabled() const
++    {
++        return m_nativeTilingEnabled;
++    }
+     /**
+      * @returns true if each screen has its own active corners instead of limiting
+      * to only four corners across all screens.
+@@ -701,6 +706,7 @@
+     void setElectricBorderMaximize(bool electricBorderMaximize);
+     void setElectricBorderAllScreenCorner(bool electricBorderAllScreenCorner);
+     void setElectricBorderTiling(bool electricBorderTiling);
++    void setNativeTilingEnabled(bool nativeTilingEnabled);
+     void setElectricBorderCornerRatio(float electricBorderCornerRatio);
+     void setBorderlessMaximizedWindows(bool borderlessMaximizedWindows);
+     void setKillPingTimeout(int killPingTimeout);
+@@ -878,6 +884,7 @@
+     void condensedTitleChanged();
+     void electricBorderMaximizeChanged();
+     void electricBorderTilingChanged();
++    void nativeTilingEnabledChanged();
+     void electricBorderCornerRatioChanged();
+     void electricBorderAllScreenCornerChanged();
+     void borderlessMaximizedWindowsChanged();
+@@ -949,6 +956,7 @@
+ 
+     bool electric_border_maximize;
+     bool electric_border_tiling;
++    bool m_nativeTilingEnabled = true;
+     bool electric_border_all_screen_corner;
+     float electric_border_corner_ratio;
+     bool borderless_maximized_windows;
+--- src/options.cpp	2026-09-08 22:53:35.000000000 +1200
++++ src/options.cpp	2026-10-05 19:43:16.915487565 +1300
+@@ -539,6 +539,15 @@
+     Q_EMIT electricBorderTilingChanged();
+ }
+ 
++void Options::setNativeTilingEnabled(bool nativeTilingEnabled)
++{
++    if (m_nativeTilingEnabled == nativeTilingEnabled) {
++        return;
++    }
++    m_nativeTilingEnabled = nativeTilingEnabled;
++    Q_EMIT nativeTilingEnabledChanged();
++}
++
+ void Options::setElectricBorderCornerRatio(float electricBorderCornerRatio)
+ {
+     if (electric_border_corner_ratio == electricBorderCornerRatio) {
+@@ -753,6 +762,7 @@
+     setBorderlessMaximizedWindows(m_settings->borderlessMaximizedWindows());
+     setElectricBorderMaximize(m_settings->electricBorderMaximize());
+     setElectricBorderTiling(m_settings->electricBorderTiling());
++    setNativeTilingEnabled(m_settings->nativeTilingEnabled());
+     setElectricBorderCornerRatio(m_settings->electricBorderCornerRatio());
+     setElectricBorderAllScreenCorner(m_settings->electricBorderAllScreenCorner());
+     setAllowTearing(m_settings->allowTearing());
+--- src/window.cpp	2026-09-08 22:53:35.000000000 +1200
++++ src/window.cpp	2026-10-05 19:43:16.915487565 +1300
+@@ -2432,7 +2432,7 @@
+ 
+         RectF area = workspace()->clientArea(MaximizeArea, this, QPointF(xroot, yroot));
+         QuickTileMode tile = QuickTileFlag::None;
+-        if (options->electricBorderTiling()) {
++        if (options->electricBorderTiling() && options->nativeTilingEnabled()) {
+             if (xroot <= area.x() + 20) {
+                 tile |= QuickTileFlag::Left;
+                 innerBorder = isInScreen(QPoint(area.x() - 1, yroot));
+@@ -3574,6 +3574,10 @@
+ 
+ void Window::handleQuickTileShortcut(QuickTileMode mode)
+ {
++    if (!options->nativeTilingEnabled() && mode != QuickTileFlag::None) {
++        return;
++    }
++
+     QPointF tileAtPoint = moveResizeGeometry().center();
+     if (mode != QuickTileFlag::None) {
+         const QuickTileMode oldMode = requestedQuickTileMode();
+@@ -3638,7 +3642,7 @@
+ 
+ void Window::handleCustomQuickTileShortcut(QuickTileMode mode)
+ {
+-    if (mode == QuickTileFlag::None) {
++    if (!options->nativeTilingEnabled() || mode == QuickTileFlag::None) {
+         return;
+     }
+     // if window is not tiled already, set it to nearest one
+@@ -3681,6 +3685,10 @@
+ 
+ void Window::setQuickTileMode(QuickTileMode mode, const QPointF &tileAtPoint)
+ {
++    if (!options->nativeTilingEnabled() && mode != QuickTileFlag::None) {
++        return;
++    }
++
+     workspace()->updateFocusMousePosition(Cursors::self()->mouse()->pos()); // may cause leave event
+ 
+     // sanitize the mode, ie. simplify "invalid" combinations
+--- src/placement.cpp	2026-09-08 22:53:35.000000000 +1200
++++ src/placement.cpp	2026-10-05 19:43:16.915487565 +1300
+@@ -771,7 +771,7 @@
+ 
+ void Workspace::quickTileWindow(QuickTileMode mode)
+ {
+-    if (!m_activeWindow) {
++    if (!m_activeWindow || (!options->nativeTilingEnabled() && mode != QuickTileFlag::None)) {
+         return;
+     }
+ 
+@@ -780,7 +780,7 @@
+ 
+ void Workspace::customQuickTileWindow(QuickTileMode mode)
+ {
+-    if (!m_activeWindow) {
++    if (!m_activeWindow || !options->nativeTilingEnabled()) {
+         return;
+     }
+ 
