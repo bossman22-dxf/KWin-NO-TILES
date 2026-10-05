@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libscreenedge.a CMakeFiles/screenedge.dir/screenedge_autogen/mocs_compilation.cpp.o CMakeFiles/screenedge.dir/main.cpp.o CMakeFiles/screenedge.dir/screenedgeeffect.cpp.o
+/usr/bin/ranlib ../../../lib/libscreenedge.a

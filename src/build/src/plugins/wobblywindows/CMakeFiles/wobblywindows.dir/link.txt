@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libwobblywindows.a CMakeFiles/wobblywindows.dir/wobblywindows_autogen/mocs_compilation.cpp.o CMakeFiles/wobblywindows.dir/main.cpp.o CMakeFiles/wobblywindows.dir/wobblywindows.cpp.o CMakeFiles/wobblywindows.dir/wobblywindowsconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libwobblywindows.a

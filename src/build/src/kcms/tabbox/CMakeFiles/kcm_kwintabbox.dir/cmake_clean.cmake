@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "../../../bin/plasma/kcms/systemsettings_qwidgets/kcm_kwintabbox.pdb"
+  "../../../bin/plasma/kcms/systemsettings_qwidgets/kcm_kwintabbox.so"
+  "CMakeFiles/kcm_kwintabbox_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/kcm_kwintabbox_autogen.dir/ParseCache.txt"
+  "kcm_kwintabbox_autogen"
+  "CMakeFiles/kcm_kwintabbox.dir/__/__/tabbox/tabboxconfig.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/__/__/tabbox/tabboxconfig.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kcm_kwintabbox_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kcm_kwintabbox_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kwin_effects_interface.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kwin_effects_interface.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kwinswitcheffectsettings.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kwinswitcheffectsettings.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxconfigform.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxconfigform.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxdata.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxdata.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxsettings.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/kwintabboxsettings.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/main.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/main.cpp.o.d"
+  "CMakeFiles/kcm_kwintabbox.dir/shortcutsettings.cpp.o"
+  "CMakeFiles/kcm_kwintabbox.dir/shortcutsettings.cpp.o.d"
+  "kcm_kwintabbox_autogen/mocs_compilation.cpp"
+  "kcm_kwintabbox_autogen/timestamp"
+  "kwin_effects_interface.cpp"
+  "kwin_effects_interface.h"
+  "kwinswitcheffectsettings.cpp"
+  "kwinswitcheffectsettings.h"
+  "kwintabboxsettings.cpp"
+  "kwintabboxsettings.h"
+  "moc_kwin_effects_interface.cpp"
+  "ui_main.h"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/kcm_kwintabbox.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

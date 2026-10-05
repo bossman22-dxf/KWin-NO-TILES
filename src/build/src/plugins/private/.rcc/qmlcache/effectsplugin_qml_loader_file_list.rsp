@@ -1,0 +1,6 @@
+--resource
+/home/ty/kwin/src/build/src/plugins/private/.qt/rcc/qmake_org_kde_kwin_private_effects.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/private/.qt/rcc/effectsplugin_raw_qml_0.qrc
+/qt/qml/org/kde/kwin/private/effects/WindowHeap.qml
+/qt/qml/org/kde/kwin/private/effects/WindowHeapDelegate.qml

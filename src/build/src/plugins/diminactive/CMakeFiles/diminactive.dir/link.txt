@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libdiminactive.a CMakeFiles/diminactive.dir/diminactive_autogen/mocs_compilation.cpp.o CMakeFiles/diminactive.dir/diminactive.cpp.o CMakeFiles/diminactive.dir/main.cpp.o CMakeFiles/diminactive.dir/diminactiveconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libdiminactive.a

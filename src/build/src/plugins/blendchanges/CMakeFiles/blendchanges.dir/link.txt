@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libblendchanges.a CMakeFiles/blendchanges.dir/blendchanges_autogen/mocs_compilation.cpp.o CMakeFiles/blendchanges.dir/main.cpp.o CMakeFiles/blendchanges.dir/blendchanges.cpp.o
+/usr/bin/ranlib ../../../lib/libblendchanges.a

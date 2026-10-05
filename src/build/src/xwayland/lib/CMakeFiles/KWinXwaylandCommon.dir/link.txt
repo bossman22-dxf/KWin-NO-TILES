@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libKWinXwaylandCommon.a CMakeFiles/KWinXwaylandCommon.dir/KWinXwaylandCommon_autogen/mocs_compilation.cpp.o CMakeFiles/KWinXwaylandCommon.dir/xwaylandsocket.cpp.o CMakeFiles/KWinXwaylandCommon.dir/xauthority.cpp.o CMakeFiles/KWinXwaylandCommon.dir/xwayland_logging.cpp.o
+/usr/bin/ranlib ../../../lib/libKWinXwaylandCommon.a

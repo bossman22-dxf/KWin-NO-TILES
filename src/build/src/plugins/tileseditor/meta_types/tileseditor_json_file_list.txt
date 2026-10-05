@@ -1,0 +1,2 @@
+/home/ty/kwin/src/build/src/plugins/tileseditor/tileseditor_autogen/include/main.moc.json
+/home/ty/kwin/src/build/src/plugins/tileseditor/tileseditor_autogen/include/moc_tileseditoreffect.cpp.json

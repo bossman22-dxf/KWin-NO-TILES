@@ -1,0 +1,9 @@
+WaylandProtocols_xml_autogen/timestamp: \
+	/home/ty/kwin/src/kwin-6.7.5/src/wayland/CMakeLists.txt \
+	/usr/share/ECM/find-modules/ECMFindModuleHelpersStub.cmake \
+	/usr/share/ECM/find-modules/FindWaylandScanner.cmake \
+	/usr/share/ECM/modules/ECMFindModuleHelpers.cmake \
+	/usr/share/cmake/Modules/FeatureSummary.cmake \
+	/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake \
+	/usr/share/cmake/Modules/FindPackageMessage.cmake \
+	/usr/bin/cmake

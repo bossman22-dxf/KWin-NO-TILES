@@ -1,0 +1,3 @@
+/home/ty/kwin/src/build/src/plugins/private/effectsplugin_autogen/include/moc_expoarea.cpp.json
+/home/ty/kwin/src/build/src/plugins/private/effectsplugin_autogen/include/moc_expolayout.cpp.json
+/home/ty/kwin/src/build/src/plugins/private/effectsplugin_autogen/include/moc_plugin.cpp.json

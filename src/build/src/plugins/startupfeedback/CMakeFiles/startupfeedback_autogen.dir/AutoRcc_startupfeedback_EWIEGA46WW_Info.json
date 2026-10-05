@@ -1,0 +1,25 @@
+{
+	"BUILD_DIR" : "/home/ty/kwin/src/build/src/plugins/startupfeedback/startupfeedback_autogen",
+	"CMAKE_BINARY_DIR" : "/home/ty/kwin/src/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/ty/kwin/src/build/src/plugins/startupfeedback",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ty/kwin/src/kwin-6.7.5/src/plugins/startupfeedback",
+	"CMAKE_SOURCE_DIR" : "/home/ty/kwin/src/kwin-6.7.5",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/home/ty/kwin/src/build/src/plugins/startupfeedback/startupfeedback_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/ty/kwin/src/kwin-6.7.5/src/plugins/startupfeedback/shaders/blinking-startup.frag"
+	],
+	"LOCK_FILE" : "/home/ty/kwin/src/build/src/plugins/startupfeedback/CMakeFiles/startupfeedback_autogen.dir/AutoRcc_startupfeedback_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "startupfeedback" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_startupfeedback.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib/qt6/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/ty/kwin/src/build/src/plugins/startupfeedback/CMakeFiles/startupfeedback_autogen.dir/AutoRcc_startupfeedback_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/ty/kwin/src/kwin-6.7.5/src/plugins/startupfeedback/startupfeedback.qrc",
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}

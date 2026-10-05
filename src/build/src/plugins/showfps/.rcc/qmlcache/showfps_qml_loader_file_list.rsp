@@ -1,0 +1,6 @@
+--resource
+/home/ty/kwin/src/build/src/plugins/showfps/.qt/rcc/qmake_org_kde_kwin_showfps.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/showfps/.qt/rcc/showfps_raw_qml_0.qrc
+/qt/qml/org/kde/kwin/showfps/qml/Main.qml
+/qt/qml/org/kde/kwin/showfps/qml/Fallback.qml

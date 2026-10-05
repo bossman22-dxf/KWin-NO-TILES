@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libthumbnailaside.a CMakeFiles/thumbnailaside.dir/thumbnailaside_autogen/mocs_compilation.cpp.o CMakeFiles/thumbnailaside.dir/main.cpp.o CMakeFiles/thumbnailaside.dir/thumbnailaside.cpp.o CMakeFiles/thumbnailaside.dir/thumbnailasideconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libthumbnailaside.a

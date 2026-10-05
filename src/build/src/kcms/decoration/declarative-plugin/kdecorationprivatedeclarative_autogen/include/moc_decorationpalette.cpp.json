@@ -1,0 +1,27 @@
+{
+    "classes": [
+        {
+            "className": "DecorationPalette",
+            "lineNumber": 28,
+            "object": true,
+            "qualifiedClassName": "KWin::Decoration::DecorationPalette",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "lineNumber": 41,
+                    "name": "changed",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "decorationpalette.h",
+    "outputRevision": 69
+}

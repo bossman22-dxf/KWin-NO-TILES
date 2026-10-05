@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/org/kde/kwin/tileseditor">
+    <file alias="qmldir">/home/ty/kwin/src/build/bin/org/kde/kwin/tileseditor/qmldir</file>
+  </qresource>
+</RCC>
+

@@ -1,0 +1,14 @@
+-I
+/home/ty/kwin/src/build/bin
+-I
+/home/ty/kwin/src/build/bin/org/kde/kwin/overview
+-I
+/home/ty/kwin/src/build/bin
+-I
+/usr/lib/qt6/qml
+--resource
+/home/ty/kwin/src/build/src/plugins/overview/.qt/rcc/qmake_org_kde_kwin_overview.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/overview/.qt/rcc/overview_raw_qml_0.qrc
+--module
+org.kde.kwin.overview

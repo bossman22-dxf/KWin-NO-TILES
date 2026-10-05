@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libtouchpoints.a CMakeFiles/touchpoints.dir/touchpoints_autogen/mocs_compilation.cpp.o CMakeFiles/touchpoints.dir/main.cpp.o CMakeFiles/touchpoints.dir/touchpoints.cpp.o
+/usr/bin/ranlib ../../../lib/libtouchpoints.a

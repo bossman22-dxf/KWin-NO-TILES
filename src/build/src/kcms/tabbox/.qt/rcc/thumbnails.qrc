@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="/kwin-tabbox-preview">
+    <file alias="falkon.png">/home/ty/kwin/src/kwin-6.7.5/src/kcms/tabbox/thumbnails/falkon.png</file>
+    <file alias="kmail.png">/home/ty/kwin/src/kwin-6.7.5/src/kcms/tabbox/thumbnails/kmail.png</file>
+    <file alias="systemsettings.png">/home/ty/kwin/src/kwin-6.7.5/src/kcms/tabbox/thumbnails/systemsettings.png</file>
+    <file alias="dolphin.png">/home/ty/kwin/src/kwin-6.7.5/src/kcms/tabbox/thumbnails/dolphin.png</file>
+    <file alias="desktop.png">/home/ty/kwin/src/kwin-6.7.5/src/kcms/tabbox/thumbnails/desktop.png</file>
+  </qresource>
+</RCC>
+

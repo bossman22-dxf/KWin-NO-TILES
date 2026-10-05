@@ -1,0 +1,5 @@
+qtwaylandscanner_kde_autogen/timestamp: \
+	/home/ty/kwin/src/kwin-6.7.5/src/wayland/tools/CMakeLists.txt \
+	/home/ty/kwin/src/kwin-6.7.5/src/wayland/tools/qtwaylandscanner.cpp \
+	/usr/share/ECM/modules/ECMMarkNonGuiExecutable.cmake \
+	/usr/bin/cmake

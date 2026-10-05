@@ -1,0 +1,16 @@
+-I
+/usr/lib/qt6/qml
+-I
+/home/ty/kwin/src/build/bin
+-I
+/home/ty/kwin/src/build/bin/org/kde/kwin/private/effects
+-I
+/home/ty/kwin/src/build/bin
+-I
+/usr/lib/qt6/qml
+--resource
+/home/ty/kwin/src/build/src/plugins/private/.qt/rcc/qmake_org_kde_kwin_private_effects.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/private/.qt/rcc/effectsplugin_raw_qml_0.qrc
+--module
+org.kde.kwin.private.effects

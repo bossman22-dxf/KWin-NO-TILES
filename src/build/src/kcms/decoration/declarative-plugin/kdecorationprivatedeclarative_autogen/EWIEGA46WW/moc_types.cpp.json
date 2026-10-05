@@ -1,0 +1,38 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "anonymous"
+                },
+                {
+                    "name": "QML.Foreign",
+                    "value": "KDecoration3::Decoration"
+                }
+            ],
+            "className": "DecorationForeign",
+            "gadget": true,
+            "lineNumber": 13,
+            "qualifiedClassName": "DecorationForeign"
+        },
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "anonymous"
+                },
+                {
+                    "name": "QML.Foreign",
+                    "value": "KDecoration3::DecorationShadow"
+                }
+            ],
+            "className": "DecorationShadowForeign",
+            "gadget": true,
+            "lineNumber": 20,
+            "qualifiedClassName": "DecorationShadowForeign"
+        }
+    ],
+    "inputFile": "types.h",
+    "outputRevision": 69
+}

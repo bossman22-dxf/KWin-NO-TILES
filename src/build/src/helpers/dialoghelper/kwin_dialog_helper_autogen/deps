@@ -1,0 +1,5 @@
+kwin_dialog_helper_autogen/timestamp: \
+	/home/ty/kwin/src/kwin-6.7.5/src/helpers/dialoghelper/CMakeLists.txt \
+	/home/ty/kwin/src/kwin-6.7.5/src/helpers/dialoghelper/dialoghelper.cpp \
+	/home/ty/kwin/src/kwin-6.7.5/src/helpers/dialoghelper/org.kde.kwin.dialoghelper.desktop.in \
+	/usr/bin/cmake

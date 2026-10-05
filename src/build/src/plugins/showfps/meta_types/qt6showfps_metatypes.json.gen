@@ -1,0 +1,169 @@
+[
+    {
+        "classes": [
+            {
+                "className": "showfps_factory",
+                "interfaces": [
+                    [
+                        {
+                            "className": "KPluginFactory",
+                            "id": "\"org.kde.KPluginFactory\""
+                        }
+                    ]
+                ],
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "KWin::showfps_factory",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "KWin::EffectPluginFactory"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "main.cpp",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "ShowFpsScreen",
+                "lineNumber": 21,
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "lineNumber": 24,
+                        "name": "fps",
+                        "notify": "fpsChanged",
+                        "override": false,
+                        "read": "fps",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "virtual": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "lineNumber": 25,
+                        "name": "maximumFps",
+                        "notify": "maximumFpsChanged",
+                        "override": false,
+                        "read": "maximumFps",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "virtual": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "lineNumber": 26,
+                        "name": "paintDuration",
+                        "notify": "paintChanged",
+                        "override": false,
+                        "read": "paintDuration",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "virtual": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "lineNumber": 27,
+                        "name": "paintAmount",
+                        "notify": "paintChanged",
+                        "override": false,
+                        "read": "paintAmount",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "virtual": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 4,
+                        "lineNumber": 28,
+                        "name": "paintColor",
+                        "notify": "paintChanged",
+                        "override": false,
+                        "read": "paintColor",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QColor",
+                        "user": false,
+                        "virtual": false
+                    }
+                ],
+                "qualifiedClassName": "KWin::ShowFpsScreen",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "lineNumber": 38,
+                        "name": "fpsChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "lineNumber": 39,
+                        "name": "maximumFpsChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "lineNumber": 40,
+                        "name": "paintChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            },
+            {
+                "className": "ShowFpsEffect",
+                "lineNumber": 53,
+                "object": true,
+                "qualifiedClassName": "KWin::ShowFpsEffect",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "fullyQualifiedName": "KWin::Effect",
+                        "name": "Effect"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "showfpseffect.h",
+        "outputRevision": 69
+    }
+]

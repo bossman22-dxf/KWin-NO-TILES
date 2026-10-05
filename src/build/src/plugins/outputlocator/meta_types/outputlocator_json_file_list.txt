@@ -1,0 +1,2 @@
+/home/ty/kwin/src/build/src/plugins/outputlocator/outputlocator_autogen/include/main.moc.json
+/home/ty/kwin/src/build/src/plugins/outputlocator/outputlocator_autogen/include/moc_outputlocator.cpp.json

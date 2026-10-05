@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libcolorblindnesscorrection.a CMakeFiles/colorblindnesscorrection.dir/colorblindnesscorrection_autogen/mocs_compilation.cpp.o CMakeFiles/colorblindnesscorrection.dir/main.cpp.o CMakeFiles/colorblindnesscorrection.dir/colorblindnesscorrection.cpp.o CMakeFiles/colorblindnesscorrection.dir/colorblindnesscorrectionconfig.cpp.o CMakeFiles/colorblindnesscorrection.dir/colorblindnesscorrection_autogen/EWIEGA46WW/qrc_colorblindnesscorrection.cpp.o
+/usr/bin/ranlib ../../../lib/libcolorblindnesscorrection.a

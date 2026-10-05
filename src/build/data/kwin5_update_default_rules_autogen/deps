@@ -1,0 +1,4 @@
+kwin5_update_default_rules_autogen/timestamp: \
+	/home/ty/kwin/src/kwin-6.7.5/data/CMakeLists.txt \
+	/home/ty/kwin/src/kwin-6.7.5/data/update_default_rules.cpp \
+	/usr/bin/cmake

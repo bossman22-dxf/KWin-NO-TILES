@@ -1,0 +1,134 @@
+{
+	"BUILD_DIR" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/kwindowprop_autogen",
+	"CMAKE_BINARY_DIR" : "/home/ty/kwin/src/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/ty/kwin/src/build/src/helpers/kwindowprop",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ty/kwin/src/kwin-6.7.5/src/helpers/kwindowprop",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : [ "/home/ty/kwin/src/kwin-6.7.5/src/helpers/kwindowprop/CMakeLists.txt" ],
+	"CMAKE_SOURCE_DIR" : "/home/ty/kwin/src/kwin-6.7.5",
+	"CROSS_CONFIG" : false,
+	"DEP_FILE" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/kwindowprop_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "kwindowprop_autogen/timestamp",
+	"HEADERS" : [],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/kwindowprop_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/kwindowprop_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"EGL_NO_PLATFORM_SPECIFIC_TYPES",
+		"EGL_NO_X11",
+		"HAVE_ACK_GLOBAL_REMOVE=1",
+		"KF_DEPRECATED_WARNINGS_SINCE=0x70000",
+		"KF_DISABLE_DEPRECATED_BEFORE_AND_AT=0x60900",
+		"MESA_EGL_NO_X11_HEADERS",
+		"QT_CORE_LIB",
+		"QT_DBUS_LIB",
+		"QT_DEPRECATED_WARNINGS_SINCE=0x60000",
+		"QT_DISABLE_DEPRECATED_BEFORE=0x50f00",
+		"QT_NO_CAST_TO_ASCII",
+		"QT_NO_CONTEXTLESS_CONNECT",
+		"QT_NO_DEBUG",
+		"QT_NO_FOREACH",
+		"QT_NO_KEYWORDS",
+		"QT_NO_NARROWING_CONVERSIONS_IN_CONNECT",
+		"QT_NO_URL_CAST_FROM_STRING",
+		"QT_USE_QSTRINGBUILDER",
+		"_GNU_SOURCE",
+		"_LARGEFILE64_SOURCE"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		],
+		[
+			"KWIN_EFFECT_FACTORY",
+			"[\n^][ \t]*KWIN_EFFECT_FACTORY[ \t\n]*\\([^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"KWIN_EFFECT_FACTORY_ENABLED",
+			"[\n^][ \t]*KWIN_EFFECT_FACTORY_ENABLED[ \t\n]*\\([^,]*,[^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"KWIN_EFFECT_FACTORY_SUPPORTED",
+			"[\n^][ \t]*KWIN_EFFECT_FACTORY_SUPPORTED[ \t\n]*\\([^,]*,[^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"JSON_ARG4",
+			"[\n^][ \t]*JSON_ARG4[ \t\n]*\\([^,]*,[^,]*,[ \t\n]*\"([^\"]+)\""
+		],
+		[
+			"KWIN_EFFECT_FACTORY_SUPPORTED_ENABLED",
+			"[\n^][ \t]*KWIN_EFFECT_FACTORY_SUPPORTED_ENABLED[ \t\n]*\\([^,]*,[^,]*,[ \t\n]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/ty/kwin/src/build/src/helpers/kwindowprop",
+		"/home/ty/kwin/src/kwin-6.7.5/src/helpers/kwindowprop",
+		"/home/ty/kwin/src/kwin-6.7.5/src",
+		"/home/ty/kwin/src/build/src",
+		"/home/ty/kwin/src/build/src/wayland",
+		"/usr/include/qt6/QtCore",
+		"/usr/include/qt6",
+		"/usr/lib/qt6/mkspecs/linux-g++",
+		"/usr/include/qt6/QtDBus",
+		"/usr/include/c++/16",
+		"/usr/include/c++/16/x86_64-pc-linux-gnu",
+		"/usr/include/c++/16/backward",
+		"/usr/lib/gcc/x86_64-pc-linux-gnu/16/include",
+		"/usr/local/include",
+		"/usr/include"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT",
+		"Q_GADGET_EXPORT",
+		"Q_ENUM_NS",
+		"K_PLUGIN_FACTORY",
+		"K_PLUGIN_CLASS",
+		"K_PLUGIN_FACTORY_WITH_JSON",
+		"K_PLUGIN_CLASS_WITH_JSON",
+		"KWIN_EFFECT_FACTORY",
+		"KWIN_EFFECT_FACTORY_ENABLED",
+		"KWIN_EFFECT_FACTORY_SUPPORTED",
+		"JSON_ARG4",
+		"KWIN_EFFECT_FACTORY_SUPPORTED_ENABLED"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-std=gnu++23",
+		"-w",
+		"-dM",
+		"-E",
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/kwindowprop_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 16,
+	"PARSE_CACHE_FILE" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/CMakeFiles/kwindowprop_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt6/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 6,
+	"QT_VERSION_MINOR" : 11,
+	"SETTINGS_FILE" : "/home/ty/kwin/src/build/src/helpers/kwindowprop/CMakeFiles/kwindowprop_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/ty/kwin/src/kwin-6.7.5/src/helpers/kwindowprop/main.cpp",
+			"Mu",
+			null
+		]
+	],
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}

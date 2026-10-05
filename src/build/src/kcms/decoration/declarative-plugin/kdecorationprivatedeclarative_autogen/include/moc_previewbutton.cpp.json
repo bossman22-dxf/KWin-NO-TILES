@@ -1,0 +1,120 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "Button"
+                }
+            ],
+            "className": "PreviewButtonItem",
+            "lineNumber": 24,
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "lineNumber": 28,
+                    "name": "bridge",
+                    "notify": "bridgeChanged",
+                    "override": false,
+                    "read": "bridge",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Preview::PreviewBridge*",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setBridge"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "lineNumber": 29,
+                    "name": "settings",
+                    "notify": "settingsChanged",
+                    "override": false,
+                    "read": "settings",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Preview::Settings*",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setSettings"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "lineNumber": 30,
+                    "name": "type",
+                    "notify": "typeChanged",
+                    "override": false,
+                    "read": "typeAsInt",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setType"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "lineNumber": 31,
+                    "name": "color",
+                    "override": false,
+                    "read": "color",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setColor"
+                }
+            ],
+            "qualifiedClassName": "KDecoration3::Preview::PreviewButtonItem",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "lineNumber": 56,
+                    "name": "bridgeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "lineNumber": 57,
+                    "name": "typeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "lineNumber": 58,
+                    "name": "settingsChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickPaintedItem"
+                }
+            ]
+        }
+    ],
+    "inputFile": "previewbutton.h",
+    "outputRevision": 69
+}

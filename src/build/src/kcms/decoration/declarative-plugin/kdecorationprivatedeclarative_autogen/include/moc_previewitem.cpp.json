@@ -1,0 +1,209 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "Decoration"
+                }
+            ],
+            "className": "PreviewItem",
+            "lineNumber": 25,
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "lineNumber": 29,
+                    "name": "decoration",
+                    "notify": "decorationChanged",
+                    "override": false,
+                    "read": "decoration",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Decoration*",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "lineNumber": 30,
+                    "name": "bridge",
+                    "notify": "bridgeChanged",
+                    "override": false,
+                    "read": "bridge",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Preview::PreviewBridge*",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setBridge"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "lineNumber": 31,
+                    "name": "settings",
+                    "notify": "settingsChanged",
+                    "override": false,
+                    "read": "settings",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Preview::Settings*",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setSettings"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "lineNumber": 32,
+                    "name": "client",
+                    "override": false,
+                    "read": "client",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::Preview::PreviewClient*",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 4,
+                    "lineNumber": 33,
+                    "name": "shadow",
+                    "notify": "shadowChanged",
+                    "override": false,
+                    "read": "shadow",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "KDecoration3::DecorationShadow*",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 5,
+                    "lineNumber": 34,
+                    "name": "windowColor",
+                    "notify": "windowColorChanged",
+                    "override": false,
+                    "read": "windowColor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QColor",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setWindowColor"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 6,
+                    "lineNumber": 35,
+                    "name": "drawBackground",
+                    "notify": "drawingBackgroundChanged",
+                    "override": false,
+                    "read": "isDrawingBackground",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false,
+                    "write": "setDrawingBackground"
+                }
+            ],
+            "qualifiedClassName": "KDecoration3::Preview::PreviewItem",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "deco",
+                            "type": "KDecoration3::Decoration*"
+                        }
+                    ],
+                    "index": 0,
+                    "lineNumber": 61,
+                    "name": "decorationChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "color",
+                            "type": "QColor"
+                        }
+                    ],
+                    "index": 1,
+                    "lineNumber": 62,
+                    "name": "windowColorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 2,
+                    "lineNumber": 63,
+                    "name": "drawingBackgroundChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "lineNumber": 64,
+                    "name": "bridgeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 4,
+                    "lineNumber": 65,
+                    "name": "settingsChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "lineNumber": 66,
+                    "name": "shadowChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuickPaintedItem"
+                }
+            ]
+        }
+    ],
+    "inputFile": "previewitem.h",
+    "outputRevision": 69
+}

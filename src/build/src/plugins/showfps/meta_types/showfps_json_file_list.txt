@@ -1,0 +1,2 @@
+/home/ty/kwin/src/build/src/plugins/showfps/showfps_autogen/include/main.moc.json
+/home/ty/kwin/src/build/src/plugins/showfps/showfps_autogen/include/moc_showfpseffect.cpp.json

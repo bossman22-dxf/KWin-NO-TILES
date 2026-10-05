@@ -1,0 +1,2 @@
+/home/ty/kwin/src/build/src/plugins/windowview/windowview_autogen/include/main.moc.json
+/home/ty/kwin/src/build/src/plugins/windowview/windowview_autogen/include/moc_windowvieweffect.cpp.json

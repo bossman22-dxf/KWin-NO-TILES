@@ -1,0 +1,5 @@
+--resource
+/home/ty/kwin/src/build/src/plugins/outputlocator/.qt/rcc/qmake_org_kde_kwin_outputlocator.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/outputlocator/.qt/rcc/outputlocator_raw_qml_0.qrc
+/qt/qml/org/kde/kwin/outputlocator/qml/OutputLabel.qml

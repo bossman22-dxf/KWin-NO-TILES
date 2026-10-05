@@ -1,0 +1,332 @@
+{
+    "classes": [
+        {
+            "className": "OverviewEffect",
+            "lineNumber": 17,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "screen",
+                            "type": "LogicalOutput*"
+                        }
+                    ],
+                    "index": 14,
+                    "isConst": true,
+                    "lineNumber": 53,
+                    "name": "desktopOffsetForScreen",
+                    "returnType": "QPointF"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "lineNumber": 20,
+                    "name": "animationDuration",
+                    "notify": "animationDurationChanged",
+                    "override": false,
+                    "read": "animationDuration",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "lineNumber": 21,
+                    "name": "ignoreMinimized",
+                    "notify": "ignoreMinimizedChanged",
+                    "override": false,
+                    "read": "ignoreMinimized",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "lineNumber": 22,
+                    "name": "filterWindows",
+                    "notify": "filterWindowsChanged",
+                    "override": false,
+                    "read": "filterWindows",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "lineNumber": 23,
+                    "name": "organizedGrid",
+                    "notify": "organizedGridChanged",
+                    "override": false,
+                    "read": "organizedGrid",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 4,
+                    "lineNumber": 24,
+                    "name": "overviewPartialActivationFactor",
+                    "notify": "overviewPartialActivationFactorChanged",
+                    "override": false,
+                    "read": "overviewPartialActivationFactor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 5,
+                    "lineNumber": 26,
+                    "name": "overviewGestureInProgress",
+                    "notify": "overviewGestureInProgressChanged",
+                    "override": false,
+                    "read": "overviewGestureInProgress",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 6,
+                    "lineNumber": 27,
+                    "name": "transitionPartialActivationFactor",
+                    "notify": "transitionPartialActivationFactorChanged",
+                    "override": false,
+                    "read": "transitionPartialActivationFactor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 7,
+                    "lineNumber": 28,
+                    "name": "transitionGestureInProgress",
+                    "notify": "transitionGestureInProgressChanged",
+                    "override": false,
+                    "read": "transitionGestureInProgress",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 8,
+                    "lineNumber": 29,
+                    "name": "gridPartialActivationFactor",
+                    "notify": "gridPartialActivationFactorChanged",
+                    "override": false,
+                    "read": "gridPartialActivationFactor",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "qreal",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 9,
+                    "lineNumber": 30,
+                    "name": "gridGestureInProgress",
+                    "notify": "gridGestureInProgressChanged",
+                    "override": false,
+                    "read": "gridGestureInProgress",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "virtual": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 10,
+                    "lineNumber": 31,
+                    "member": "m_searchText",
+                    "name": "searchText",
+                    "notify": "searchTextChanged",
+                    "override": false,
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QString",
+                    "user": false,
+                    "virtual": false
+                }
+            ],
+            "qualifiedClassName": "KWin::OverviewEffect",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "lineNumber": 60,
+                    "name": "animationDurationChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "lineNumber": 61,
+                    "name": "overviewPartialActivationFactorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "lineNumber": 62,
+                    "name": "overviewGestureInProgressChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "lineNumber": 63,
+                    "name": "transitionPartialActivationFactorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 4,
+                    "lineNumber": 64,
+                    "name": "transitionGestureInProgressChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "lineNumber": 65,
+                    "name": "gridPartialActivationFactorChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 6,
+                    "lineNumber": 66,
+                    "name": "gridGestureInProgressChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 7,
+                    "lineNumber": 67,
+                    "name": "ignoreMinimizedChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 8,
+                    "lineNumber": 68,
+                    "name": "filterWindowsChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 9,
+                    "lineNumber": 69,
+                    "name": "organizedGridChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "screen",
+                            "type": "KWin::LogicalOutput*"
+                        }
+                    ],
+                    "index": 10,
+                    "lineNumber": 70,
+                    "name": "desktopOffsetChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "lineNumber": 71,
+                    "name": "searchTextChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 12,
+                    "lineNumber": 74,
+                    "name": "activate",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 13,
+                    "lineNumber": 75,
+                    "name": "deactivate",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "fullyQualifiedName": "KWin::QuickSceneEffect",
+                    "name": "QuickSceneEffect"
+                }
+            ]
+        }
+    ],
+    "inputFile": "overvieweffect.h",
+    "outputRevision": 69
+}

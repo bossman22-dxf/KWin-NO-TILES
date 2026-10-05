@@ -1,0 +1,11 @@
+KWinXwaylandCommon_autogen/timestamp: \
+	/home/ty/kwin/src/build/src/xwayland/lib/xwayland_logging.cpp \
+	/home/ty/kwin/src/build/src/xwayland/lib/xwayland_logging.h \
+	/home/ty/kwin/src/kwin-6.7.5/src/xwayland/lib/CMakeLists.txt \
+	/home/ty/kwin/src/kwin-6.7.5/src/xwayland/lib/xauthority.cpp \
+	/home/ty/kwin/src/kwin-6.7.5/src/xwayland/lib/xauthority.h \
+	/home/ty/kwin/src/kwin-6.7.5/src/xwayland/lib/xwaylandsocket.cpp \
+	/home/ty/kwin/src/kwin-6.7.5/src/xwayland/lib/xwaylandsocket.h \
+	/usr/share/ECM/modules/ECMQtDeclareLoggingCategory.cpp.in \
+	/usr/share/ECM/modules/ECMQtDeclareLoggingCategory.h.in \
+	/usr/bin/cmake

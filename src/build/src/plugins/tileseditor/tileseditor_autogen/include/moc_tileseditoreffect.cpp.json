@@ -1,0 +1,76 @@
+{
+    "classes": [
+        {
+            "className": "TilesEditorEffect",
+            "lineNumber": 16,
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "lineNumber": 19,
+                    "name": "animationDuration",
+                    "notify": "animationDurationChanged",
+                    "override": false,
+                    "read": "animationDuration",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "virtual": false
+                }
+            ],
+            "qualifiedClassName": "KWin::TilesEditorEffect",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "lineNumber": 39,
+                    "name": "animationDurationChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 1,
+                    "lineNumber": 34,
+                    "name": "toggle",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "lineNumber": 35,
+                    "name": "activate",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timeout",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 3,
+                    "lineNumber": 36,
+                    "name": "deactivate",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "fullyQualifiedName": "KWin::QuickSceneEffect",
+                    "name": "QuickSceneEffect"
+                }
+            ]
+        }
+    ],
+    "inputFile": "tileseditoreffect.h",
+    "outputRevision": 69
+}

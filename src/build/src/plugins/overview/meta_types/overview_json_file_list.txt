@@ -1,0 +1,2 @@
+/home/ty/kwin/src/build/src/plugins/overview/overview_autogen/include/main.moc.json
+/home/ty/kwin/src/build/src/plugins/overview/overview_autogen/include/moc_overvieweffect.cpp.json

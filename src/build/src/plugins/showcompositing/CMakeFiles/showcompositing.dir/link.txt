@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libshowcompositing.a CMakeFiles/showcompositing.dir/showcompositing_autogen/mocs_compilation.cpp.o CMakeFiles/showcompositing.dir/main.cpp.o CMakeFiles/showcompositing.dir/showcompositing.cpp.o
+/usr/bin/ranlib ../../../lib/libshowcompositing.a

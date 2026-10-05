@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libslidingpopups.a CMakeFiles/slidingpopups.dir/slidingpopups_autogen/mocs_compilation.cpp.o CMakeFiles/slidingpopups.dir/main.cpp.o CMakeFiles/slidingpopups.dir/slidingpopups.cpp.o CMakeFiles/slidingpopups.dir/slidingpopupsconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libslidingpopups.a

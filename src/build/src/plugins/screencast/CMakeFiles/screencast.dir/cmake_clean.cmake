@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "../../../bin/kwin/plugins/screencast.pdb"
+  "../../../bin/kwin/plugins/screencast.so"
+  "CMakeFiles/screencast_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/screencast_autogen.dir/ParseCache.txt"
+  "screencast_autogen"
+  "CMakeFiles/screencast.dir/filteredsceneview.cpp.o"
+  "CMakeFiles/screencast.dir/filteredsceneview.cpp.o.d"
+  "CMakeFiles/screencast.dir/kwinscreencast_logging.cpp.o"
+  "CMakeFiles/screencast.dir/kwinscreencast_logging.cpp.o.d"
+  "CMakeFiles/screencast.dir/main.cpp.o"
+  "CMakeFiles/screencast.dir/main.cpp.o.d"
+  "CMakeFiles/screencast.dir/outputscreencastsource.cpp.o"
+  "CMakeFiles/screencast.dir/outputscreencastsource.cpp.o.d"
+  "CMakeFiles/screencast.dir/pipewirecore.cpp.o"
+  "CMakeFiles/screencast.dir/pipewirecore.cpp.o.d"
+  "CMakeFiles/screencast.dir/regionscreencastsource.cpp.o"
+  "CMakeFiles/screencast.dir/regionscreencastsource.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencast_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/screencast.dir/screencast_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencastbuffer.cpp.o"
+  "CMakeFiles/screencast.dir/screencastbuffer.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencastlayer.cpp.o"
+  "CMakeFiles/screencast.dir/screencastlayer.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencastmanager.cpp.o"
+  "CMakeFiles/screencast.dir/screencastmanager.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencastsource.cpp.o"
+  "CMakeFiles/screencast.dir/screencastsource.cpp.o.d"
+  "CMakeFiles/screencast.dir/screencaststream.cpp.o"
+  "CMakeFiles/screencast.dir/screencaststream.cpp.o.d"
+  "CMakeFiles/screencast.dir/windowscreencastsource.cpp.o"
+  "CMakeFiles/screencast.dir/windowscreencastsource.cpp.o.d"
+  "screencast_autogen/mocs_compilation.cpp"
+  "screencast_autogen/timestamp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/screencast.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

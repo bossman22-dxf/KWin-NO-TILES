@@ -1,0 +1,142 @@
+/****************************************************************************
+** Meta object code from reading C++ file 'main.cpp'
+**
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.2)
+**
+** WARNING! All changes made in this file will be lost!
+*****************************************************************************/
+
+#include <QtCore/qmetatype.h>
+#include <QtCore/qplugin.h>
+
+#include <QtCore/qtmochelpers.h>
+
+#include <memory>
+
+
+#include <QtCore/qxptype_traits.h>
+#if !defined(Q_MOC_OUTPUT_REVISION)
+#error "The header file 'main.cpp' doesn't include <QObject>."
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.2. It"
+#error "cannot be used with the include files from this version of Qt."
+#error "(The moc has changed too much.)"
+#endif
+
+#ifndef Q_CONSTINIT
+#define Q_CONSTINIT
+#endif
+
+QT_WARNING_PUSH
+QT_WARNING_DISABLE_DEPRECATED
+QT_WARNING_DISABLE_GCC("-Wuseless-cast")
+namespace {
+struct qt_meta_tag_ZN4KWin20blendchanges_factoryE_t {};
+} // unnamed namespace
+
+template <> constexpr inline auto KWin::blendchanges_factory::qt_create_metaobjectdata<qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "KWin::blendchanges_factory"
+    };
+
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<blendchanges_factory, qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
+Q_CONSTINIT const QMetaObject KWin::blendchanges_factory::staticMetaObject = { {
+    QMetaObject::SuperData::link<KWin::EffectPluginFactory::staticMetaObject>(),
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>.data,
+    qt_static_metacall,
+    nullptr,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>.metaTypes,
+    nullptr
+} };
+
+void KWin::blendchanges_factory::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    auto *_t = static_cast<blendchanges_factory *>(_o);
+    (void)_t;
+    (void)_c;
+    (void)_id;
+    (void)_a;
+}
+
+const QMetaObject *KWin::blendchanges_factory::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *KWin::blendchanges_factory::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KWin20blendchanges_factoryE_t>.strings))
+        return static_cast<void*>(this);
+    if (!strcmp(_clname, "org.kde.KPluginFactory"))
+        return static_cast< KPluginFactory*>(this);
+    return KWin::EffectPluginFactory::qt_metacast(_clname);
+}
+
+int KWin::blendchanges_factory::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = KWin::EffectPluginFactory::qt_metacall(_c, _id, _a);
+    return _id;
+}
+using namespace KWin;
+
+#ifdef QT_MOC_EXPORT_PLUGIN_V2
+static constexpr unsigned char qt_pluginMetaDataV2_blendchanges_factory[] = {
+    0xbf, 
+    // "IID"
+    0x02,  0x78,  0x25,  'o',  'r',  'g',  '.',  'k', 
+    'd',  'e',  '.',  'k',  'w',  'i',  'n',  '.', 
+    'E',  'f',  'f',  'e',  'c',  't',  'P',  'l', 
+    'u',  'g',  'i',  'n',  'F',  'a',  'c',  't', 
+    'o',  'r',  'y',  '6',  '.',  '7',  '.',  '5', 
+    // "className"
+    0x03,  0x74,  'b',  'l',  'e',  'n',  'd',  'c', 
+    'h',  'a',  'n',  'g',  'e',  's',  '_',  'f', 
+    'a',  'c',  't',  'o',  'r',  'y', 
+    // "MetaData"
+    0x04,  0xa1,  0x67,  'K',  'P',  'l',  'u',  'g', 
+    'i',  'n',  0xa1,  0x70,  'E',  'n',  'a',  'b', 
+    'l',  'e',  'd',  'B',  'y',  'D',  'e',  'f', 
+    'a',  'u',  'l',  't',  0xf5, 
+    0xff, 
+};
+QT_MOC_EXPORT_PLUGIN_V2(KWin::blendchanges_factory, blendchanges_factory, qt_pluginMetaDataV2_blendchanges_factory)
+#else
+QT_PLUGIN_METADATA_SECTION
+Q_CONSTINIT static constexpr unsigned char qt_pluginMetaData_blendchanges_factory[] = {
+    'Q', 'T', 'M', 'E', 'T', 'A', 'D', 'A', 'T', 'A', ' ', '!',
+    // metadata version, Qt version, architectural requirements
+    0, QT_VERSION_MAJOR, QT_VERSION_MINOR, qPluginArchRequirements(),
+    0xbf, 
+    // "IID"
+    0x02,  0x78,  0x25,  'o',  'r',  'g',  '.',  'k', 
+    'd',  'e',  '.',  'k',  'w',  'i',  'n',  '.', 
+    'E',  'f',  'f',  'e',  'c',  't',  'P',  'l', 
+    'u',  'g',  'i',  'n',  'F',  'a',  'c',  't', 
+    'o',  'r',  'y',  '6',  '.',  '7',  '.',  '5', 
+    // "className"
+    0x03,  0x74,  'b',  'l',  'e',  'n',  'd',  'c', 
+    'h',  'a',  'n',  'g',  'e',  's',  '_',  'f', 
+    'a',  'c',  't',  'o',  'r',  'y', 
+    // "MetaData"
+    0x04,  0xa1,  0x67,  'K',  'P',  'l',  'u',  'g', 
+    'i',  'n',  0xa1,  0x70,  'E',  'n',  'a',  'b', 
+    'l',  'e',  'd',  'B',  'y',  'D',  'e',  'f', 
+    'a',  'u',  'l',  't',  0xf5, 
+    0xff, 
+};
+QT_MOC_EXPORT_PLUGIN(KWin::blendchanges_factory, blendchanges_factory)
+#endif  // QT_MOC_EXPORT_PLUGIN_V2
+
+QT_WARNING_POP

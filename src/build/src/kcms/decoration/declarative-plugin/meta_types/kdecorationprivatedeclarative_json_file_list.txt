@@ -1,0 +1,9 @@
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/../EWIEGA46WW/moc_types.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/kdecorationprivatedeclarative_org_kde_kwin_private_kdecorationPlugin.moc.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_buttonsmodel.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_decorationpalette.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_previewbridge.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_previewbutton.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_previewclient.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_previewitem.cpp.json
+/home/ty/kwin/src/build/src/kcms/decoration/declarative-plugin/kdecorationprivatedeclarative_autogen/include/moc_previewsettings.cpp.json

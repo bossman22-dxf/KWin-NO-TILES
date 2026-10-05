@@ -1,0 +1,16 @@
+-I
+/usr/lib/qt6/qml
+-I
+/home/ty/kwin/src/build/bin
+-I
+/home/ty/kwin/src/build/bin/org/kde/kwin/showfps
+-I
+/home/ty/kwin/src/build/bin
+-I
+/usr/lib/qt6/qml
+--resource
+/home/ty/kwin/src/build/src/plugins/showfps/.qt/rcc/qmake_org_kde_kwin_showfps.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/showfps/.qt/rcc/showfps_raw_qml_0.qrc
+--module
+org.kde.kwin.showfps

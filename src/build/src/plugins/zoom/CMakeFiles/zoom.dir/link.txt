@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libzoom.a CMakeFiles/zoom.dir/zoom_autogen/mocs_compilation.cpp.o CMakeFiles/zoom.dir/focustracker.cpp.o CMakeFiles/zoom.dir/main.cpp.o CMakeFiles/zoom.dir/textcarettracker.cpp.o CMakeFiles/zoom.dir/zoom.cpp.o CMakeFiles/zoom.dir/zoomconfig.cpp.o CMakeFiles/zoom.dir/zoom_autogen/EWIEGA46WW/qrc_zoom.cpp.o
+/usr/bin/ranlib ../../../lib/libzoom.a

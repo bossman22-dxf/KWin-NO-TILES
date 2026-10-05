@@ -1,0 +1,6 @@
+module org.kde.kwin.outputlocator
+typeinfo outputlocator.qmltypes
+prefer :/qt/qml/org/kde/kwin/outputlocator/
+OutputLabel 254.0 qml/OutputLabel.qml
+depends QtQuick
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libcolorpicker.a CMakeFiles/colorpicker.dir/colorpicker_autogen/mocs_compilation.cpp.o CMakeFiles/colorpicker.dir/colorpicker.cpp.o CMakeFiles/colorpicker.dir/colorpickerlayer.cpp.o CMakeFiles/colorpicker.dir/colorpickersceneview.cpp.o CMakeFiles/colorpicker.dir/main.cpp.o
+/usr/bin/ranlib ../../../lib/libcolorpicker.a

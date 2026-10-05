@@ -1,0 +1,8 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/clang-format-src_xxpipv1integration.h"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang )
+  include(CMakeFiles/clang-format-src_xxpipv1integration.h.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

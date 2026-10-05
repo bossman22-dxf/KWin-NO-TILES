@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libshakecursor.a CMakeFiles/shakecursor.dir/shakecursor_autogen/mocs_compilation.cpp.o CMakeFiles/shakecursor.dir/main.cpp.o CMakeFiles/shakecursor.dir/shakecursor.cpp.o CMakeFiles/shakecursor.dir/shakedetector.cpp.o CMakeFiles/shakecursor.dir/shakecursorconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libshakecursor.a

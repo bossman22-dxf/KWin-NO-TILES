@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libtrackmouse.a CMakeFiles/trackmouse.dir/trackmouse_autogen/mocs_compilation.cpp.o CMakeFiles/trackmouse.dir/main.cpp.o CMakeFiles/trackmouse.dir/trackmouse.cpp.o CMakeFiles/trackmouse.dir/trackmouseconfig.cpp.o
+/usr/bin/ranlib ../../../lib/libtrackmouse.a

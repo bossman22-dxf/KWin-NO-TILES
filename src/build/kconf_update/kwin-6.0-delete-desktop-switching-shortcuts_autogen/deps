@@ -1,0 +1,4 @@
+kwin-6.0-delete-desktop-switching-shortcuts_autogen/timestamp: \
+	/home/ty/kwin/src/kwin-6.7.5/kconf_update/CMakeLists.txt \
+	/home/ty/kwin/src/kwin-6.7.5/kconf_update/kwin-6.0-delete-desktop-switching-shortcuts.cpp \
+	/usr/bin/cmake

@@ -1,0 +1,7 @@
+module org.kde.kwin.showfps
+typeinfo showfps.qmltypes
+prefer :/qt/qml/org/kde/kwin/showfps/
+Main 254.0 qml/Main.qml
+Fallback 254.0 qml/Fallback.qml
+depends QtQuick
+

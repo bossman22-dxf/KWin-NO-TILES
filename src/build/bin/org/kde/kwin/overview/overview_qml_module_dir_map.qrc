@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/org/kde/kwin/overview">/home/ty/kwin/src/build/bin/org/kde/kwin/overview</file>
+
+  </qresource>
+</RCC>

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libblur.a CMakeFiles/blur.dir/blur_autogen/mocs_compilation.cpp.o CMakeFiles/blur.dir/blur.cpp.o CMakeFiles/blur.dir/main.cpp.o CMakeFiles/blur.dir/blurconfig.cpp.o CMakeFiles/blur.dir/blur_autogen/EWIEGA46WW/qrc_blur.cpp.o
+/usr/bin/ranlib ../../../lib/libblur.a

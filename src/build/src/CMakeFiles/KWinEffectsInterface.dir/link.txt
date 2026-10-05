@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libKWinEffectsInterface.a CMakeFiles/KWinEffectsInterface.dir/KWinEffectsInterface_autogen/mocs_compilation.cpp.o CMakeFiles/KWinEffectsInterface.dir/kwineffects_interface.cpp.o
+/usr/bin/ranlib ../lib/libKWinEffectsInterface.a

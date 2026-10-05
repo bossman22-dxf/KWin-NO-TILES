@@ -1,0 +1,10 @@
+--resource
+/home/ty/kwin/src/build/src/plugins/tileseditor/.qt/rcc/qmake_org_kde_kwin_tileseditor.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/tileseditor/.qt/rcc/tileseditor_raw_qml_0.qrc
+--resource
+/home/ty/kwin/src/build/src/plugins/tileseditor/.qt/rcc/tileseditor_raw_res_0.qrc
+/qt/qml/org/kde/kwin/tileseditor/qml/Main.qml
+/qt/qml/org/kde/kwin/tileseditor/qml/ResizeCorner.qml
+/qt/qml/org/kde/kwin/tileseditor/qml/ResizeHandle.qml
+/qt/qml/org/kde/kwin/tileseditor/qml/TileDelegate.qml

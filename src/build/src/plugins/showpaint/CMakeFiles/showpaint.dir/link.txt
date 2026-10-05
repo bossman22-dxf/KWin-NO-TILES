@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libshowpaint.a CMakeFiles/showpaint.dir/showpaint_autogen/mocs_compilation.cpp.o CMakeFiles/showpaint.dir/main.cpp.o CMakeFiles/showpaint.dir/showpaint.cpp.o
+/usr/bin/ranlib ../../../lib/libshowpaint.a
