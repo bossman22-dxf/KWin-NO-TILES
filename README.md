@@ -2,7 +2,7 @@
 
 KWin NOTILES is a small Arch Linux package patch for **KWin 6.7.5** that adds a setting to disable KWin's native tiling hooks while leaving the rest of KWin intact.
 
-The goal is to let another tool, such as **PlasmaZones**, own tiling behavior without KWin also displaying/using its own native tiling zones.
+The goal is to let another tool, specifically [**PlasmaZones**](https://github.com/fuddlesworth/PlasmaZones), own tiling behavior without KWin also displaying/using its own native tiling zones.
 
 ## What this patch changes
 
@@ -38,7 +38,7 @@ This is intended for users replacing KWin native tiling with PlasmaZones or anot
 
 This patch is specifically for **KWin 6.7.5**. It may not apply cleanly to other KWin versions.
 
-The normal KWin snapping settings are separate from native tiling. In particular, KDE's existing **Snap only when overlapping** setting is not force-changed by this patch.
+The normal KWin snapping settings are separate from native tiling. In particular, KDE's existing **Snap only when overlapping** setting is not force-changed by this patch. (Quadrant snapping is disabled by this)
 
 ## Repository contents
 
@@ -58,6 +58,8 @@ Generated folders such as `src/` and `pkg/` are intentionally not committed. The
 ## Requirements
 
 This is intended for Arch Linux or an Arch-based distro using `pacman`/`makepkg`.
+
+### THIS PATCH WAS BUILT ON AND FOR CACHYOS! <u>USE AT YOUR OWN RISK!</u> 
 
 You need the normal Arch build tools:
 
@@ -126,6 +128,12 @@ Expected disabled value:
 false
 ```
 
+If value above shows as ```'<unset>'``` then run
+```bash
+kwriteconfig6 --file kwinrc --group Windows --key NativeTilingEnabled false
+```
+
+
 ## Prevent pacman from replacing the patched package
 
 Edit pacman config:
@@ -143,7 +151,7 @@ IgnorePkg = kwin
 If you already have ignored packages, add `kwin` to the same line, for example:
 
 ```ini
-IgnorePkg = 64gram-desktop-bin kwin
+IgnorePkg = package1 package2 kwin
 ```
 
 Do **not** use `kwin-6.7.5-3`; pacman ignores package names, not package-version strings.
