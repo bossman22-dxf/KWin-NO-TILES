@@ -1,7 +1,0 @@
---resource
-/home/ty/kwin/src/build/src/plugins/overview/.qt/rcc/qmake_org_kde_kwin_overview.qrc
---resource
-/home/ty/kwin/src/build/src/plugins/overview/.qt/rcc/overview_raw_qml_0.qrc
-/qt/qml/org/kde/kwin/overview/qml/DesktopBar.qml
-/qt/qml/org/kde/kwin/overview/qml/DesktopView.qml
-/qt/qml/org/kde/kwin/overview/qml/Main.qml

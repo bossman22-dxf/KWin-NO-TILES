@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libfallapart.a CMakeFiles/fallapart.dir/fallapart_autogen/mocs_compilation.cpp.o CMakeFiles/fallapart.dir/fallapart.cpp.o CMakeFiles/fallapart.dir/main.cpp.o CMakeFiles/fallapart.dir/fallapartconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libfallapart.a

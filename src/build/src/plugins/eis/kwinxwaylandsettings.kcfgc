@@ -1,4 +1,0 @@
-Mutators=true
-Notifiers=true
-File=kwinxwaylandsettings.kcfg
-ClassName=XwaylandSettings

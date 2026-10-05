@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libglide.a CMakeFiles/glide.dir/glide_autogen/mocs_compilation.cpp.o CMakeFiles/glide.dir/glide.cpp.o CMakeFiles/glide.dir/main.cpp.o CMakeFiles/glide.dir/glideconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libglide.a

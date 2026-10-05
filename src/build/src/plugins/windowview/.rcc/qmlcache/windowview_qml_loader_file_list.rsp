@@ -1,5 +1,0 @@
---resource
-/home/ty/kwin/src/build/src/plugins/windowview/.qt/rcc/qmake_org_kde_kwin_windowview.qrc
---resource
-/home/ty/kwin/src/build/src/plugins/windowview/.qt/rcc/windowview_raw_qml_0.qrc
-/qt/qml/org/kde/kwin/windowview/qml/Main.qml

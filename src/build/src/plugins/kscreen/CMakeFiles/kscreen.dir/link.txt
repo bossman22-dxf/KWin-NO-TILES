@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libkscreen.a CMakeFiles/kscreen.dir/kscreen_autogen/mocs_compilation.cpp.o CMakeFiles/kscreen.dir/kscreen.cpp.o CMakeFiles/kscreen.dir/main.cpp.o CMakeFiles/kscreen.dir/kscreenconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libkscreen.a

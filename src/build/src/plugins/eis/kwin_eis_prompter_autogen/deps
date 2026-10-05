@@ -1,9 +1,0 @@
-kwin_eis_prompter_autogen/timestamp: \
-	/home/ty/kwin/src/build/src/plugins/eis/kwinxwaylandsettings.kcfgc \
-	/home/ty/kwin/src/kwin-6.7.5/src/kcms/xwayland/kwinxwaylandsettings.kcfg \
-	/home/ty/kwin/src/kwin-6.7.5/src/plugins/eis/CMakeLists.txt \
-	/home/ty/kwin/src/kwin-6.7.5/src/plugins/eis/config-eis.h.in \
-	/home/ty/kwin/src/kwin-6.7.5/src/plugins/eis/eisprompter.cpp \
-	/usr/share/ECM/modules/ECMQtDeclareLoggingCategory.cpp.in \
-	/usr/share/ECM/modules/ECMQtDeclareLoggingCategory.h.in \
-	/usr/bin/cmake

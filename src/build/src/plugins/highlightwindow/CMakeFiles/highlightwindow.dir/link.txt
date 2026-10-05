@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libhighlightwindow.a CMakeFiles/highlightwindow.dir/highlightwindow_autogen/mocs_compilation.cpp.o CMakeFiles/highlightwindow.dir/highlightwindow.cpp.o CMakeFiles/highlightwindow.dir/main.cpp.o
-/usr/bin/ranlib ../../../lib/libhighlightwindow.a

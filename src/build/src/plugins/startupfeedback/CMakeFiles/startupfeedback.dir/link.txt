@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libstartupfeedback.a CMakeFiles/startupfeedback.dir/startupfeedback_autogen/mocs_compilation.cpp.o CMakeFiles/startupfeedback.dir/main.cpp.o CMakeFiles/startupfeedback.dir/startupfeedback.cpp.o CMakeFiles/startupfeedback.dir/startupfeedback_autogen/EWIEGA46WW/qrc_startupfeedback.cpp.o
-/usr/bin/ranlib ../../../lib/libstartupfeedback.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libinvert.a CMakeFiles/invert.dir/invert_autogen/mocs_compilation.cpp.o CMakeFiles/invert.dir/invert.cpp.o CMakeFiles/invert.dir/main.cpp.o CMakeFiles/invert.dir/invert_autogen/EWIEGA46WW/qrc_invert.cpp.o
-/usr/bin/ranlib ../../../lib/libinvert.a

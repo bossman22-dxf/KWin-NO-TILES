@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libsheet.a CMakeFiles/sheet.dir/sheet_autogen/mocs_compilation.cpp.o CMakeFiles/sheet.dir/main.cpp.o CMakeFiles/sheet.dir/sheet.cpp.o CMakeFiles/sheet.dir/sheetconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libsheet.a

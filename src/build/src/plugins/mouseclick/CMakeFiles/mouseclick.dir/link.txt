@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libmouseclick.a CMakeFiles/mouseclick.dir/mouseclick_autogen/mocs_compilation.cpp.o CMakeFiles/mouseclick.dir/main.cpp.o CMakeFiles/mouseclick.dir/mouseclick.cpp.o CMakeFiles/mouseclick.dir/mouseclickconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libmouseclick.a

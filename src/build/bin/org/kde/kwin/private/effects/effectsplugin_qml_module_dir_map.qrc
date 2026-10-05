@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/qt/qml/org/kde/kwin/private/effects">/home/ty/kwin/src/build/bin/org/kde/kwin/private/effects</file>
-
-  </qresource>
-</RCC>

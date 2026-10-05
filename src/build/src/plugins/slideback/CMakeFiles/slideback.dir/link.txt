@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libslideback.a CMakeFiles/slideback.dir/slideback_autogen/mocs_compilation.cpp.o CMakeFiles/slideback.dir/main.cpp.o CMakeFiles/slideback.dir/motionmanager.cpp.o CMakeFiles/slideback.dir/slideback.cpp.o
-/usr/bin/ranlib ../../../lib/libslideback.a

@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libslidingnotifications.a CMakeFiles/slidingnotifications.dir/slidingnotifications_autogen/mocs_compilation.cpp.o CMakeFiles/slidingnotifications.dir/main.cpp.o CMakeFiles/slidingnotifications.dir/slidingnotifications.cpp.o
-/usr/bin/ranlib ../../../lib/libslidingnotifications.a

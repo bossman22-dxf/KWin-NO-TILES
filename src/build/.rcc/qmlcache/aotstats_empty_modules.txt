@@ -1,2 +1,0 @@
-org.kde.kwin.private.kdecoration(kdecorationprivatedeclarative)
-org.kde.kwin.private.effects(effectsplugin)

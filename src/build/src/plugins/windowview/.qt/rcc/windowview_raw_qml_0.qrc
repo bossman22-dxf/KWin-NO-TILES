@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/org/kde/kwin/windowview/">
-    <file alias="qml/Main.qml">/home/ty/kwin/src/kwin-6.7.5/src/plugins/windowview/qml/Main.qml</file>
-  </qresource>
-</RCC>
-

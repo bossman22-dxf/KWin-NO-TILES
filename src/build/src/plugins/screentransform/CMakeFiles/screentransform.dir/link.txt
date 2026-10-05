@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libscreentransform.a CMakeFiles/screentransform.dir/screentransform_autogen/mocs_compilation.cpp.o CMakeFiles/screentransform.dir/main.cpp.o CMakeFiles/screentransform.dir/screentransform.cpp.o CMakeFiles/screentransform.dir/screentransform_autogen/EWIEGA46WW/qrc_screentransform.cpp.o
-/usr/bin/ranlib ../../../lib/libscreentransform.a

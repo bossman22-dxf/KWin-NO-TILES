@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libmousemark.a CMakeFiles/mousemark.dir/mousemark_autogen/mocs_compilation.cpp.o CMakeFiles/mousemark.dir/main.cpp.o CMakeFiles/mousemark.dir/mousemark.cpp.o CMakeFiles/mousemark.dir/mousemarkconfig.cpp.o CMakeFiles/mousemark.dir/mousemarklogging.cpp.o
-/usr/bin/ranlib ../../../lib/libmousemark.a

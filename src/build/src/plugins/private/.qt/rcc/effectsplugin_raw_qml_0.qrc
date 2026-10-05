@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/org/kde/kwin/private/effects/">
-    <file alias="WindowHeap.qml">/home/ty/kwin/src/kwin-6.7.5/src/plugins/private/qml/WindowHeap.qml</file>
-    <file alias="WindowHeapDelegate.qml">/home/ty/kwin/src/kwin-6.7.5/src/plugins/private/qml/WindowHeapDelegate.qml</file>
-  </qresource>
-</RCC>
-

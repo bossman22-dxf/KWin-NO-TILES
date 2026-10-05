@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/org/kde/kwin/windowview">
-    <file alias="qmldir">/home/ty/kwin/src/build/bin/org/kde/kwin/windowview/qmldir</file>
-  </qresource>
-</RCC>
-

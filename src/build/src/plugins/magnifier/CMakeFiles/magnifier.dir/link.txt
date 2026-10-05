@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libmagnifier.a CMakeFiles/magnifier.dir/magnifier_autogen/mocs_compilation.cpp.o CMakeFiles/magnifier.dir/magnifier.cpp.o CMakeFiles/magnifier.dir/main.cpp.o CMakeFiles/magnifier.dir/magnifierconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libmagnifier.a

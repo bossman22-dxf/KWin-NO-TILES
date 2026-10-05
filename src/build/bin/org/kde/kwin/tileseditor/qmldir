@@ -1,9 +1,0 @@
-module org.kde.kwin.tileseditor
-typeinfo tileseditor.qmltypes
-prefer :/qt/qml/org/kde/kwin/tileseditor/
-Main 254.0 qml/Main.qml
-ResizeCorner 254.0 qml/ResizeCorner.qml
-ResizeHandle 254.0 qml/ResizeHandle.qml
-TileDelegate 254.0 qml/TileDelegate.qml
-depends QtQuick
-

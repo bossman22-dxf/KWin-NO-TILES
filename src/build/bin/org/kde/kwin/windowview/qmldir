@@ -1,6 +1,0 @@
-module org.kde.kwin.windowview
-typeinfo windowview.qmltypes
-prefer :/qt/qml/org/kde/kwin/windowview/
-Main 254.0 qml/Main.qml
-depends QtQuick
-

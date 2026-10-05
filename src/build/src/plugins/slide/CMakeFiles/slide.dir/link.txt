@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libslide.a CMakeFiles/slide.dir/slide_autogen/mocs_compilation.cpp.o CMakeFiles/slide.dir/main.cpp.o CMakeFiles/slide.dir/slide.cpp.o CMakeFiles/slide.dir/springmotion.cpp.o CMakeFiles/slide.dir/slideconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libslide.a

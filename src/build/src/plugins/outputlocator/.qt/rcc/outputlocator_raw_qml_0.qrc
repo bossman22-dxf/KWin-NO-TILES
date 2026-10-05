@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/org/kde/kwin/outputlocator/">
-    <file alias="qml/OutputLabel.qml">/home/ty/kwin/src/kwin-6.7.5/src/plugins/outputlocator/qml/OutputLabel.qml</file>
-  </qresource>
-</RCC>
-

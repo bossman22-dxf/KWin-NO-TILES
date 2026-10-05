@@ -1,8 +1,0 @@
-module org.kde.kwin.overview
-typeinfo overview.qmltypes
-prefer :/qt/qml/org/kde/kwin/overview/
-DesktopBar 254.0 qml/DesktopBar.qml
-DesktopView 254.0 qml/DesktopView.qml
-Main 254.0 qml/Main.qml
-depends QtQuick
-

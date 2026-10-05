@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libsystembell.a CMakeFiles/systembell.dir/systembell_autogen/mocs_compilation.cpp.o CMakeFiles/systembell.dir/systembell.cpp.o CMakeFiles/systembell.dir/main.cpp.o CMakeFiles/systembell.dir/systembell_autogen/EWIEGA46WW/qrc_systembell.cpp.o
-/usr/bin/ranlib ../../../lib/libsystembell.a

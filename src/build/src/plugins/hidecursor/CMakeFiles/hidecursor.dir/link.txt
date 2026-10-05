@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libhidecursor.a CMakeFiles/hidecursor.dir/hidecursor_autogen/mocs_compilation.cpp.o CMakeFiles/hidecursor.dir/hidecursor.cpp.o CMakeFiles/hidecursor.dir/main.cpp.o CMakeFiles/hidecursor.dir/hidecursorconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libhidecursor.a

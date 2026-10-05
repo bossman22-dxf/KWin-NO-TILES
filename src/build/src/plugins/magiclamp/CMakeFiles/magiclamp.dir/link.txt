@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../../lib/libmagiclamp.a CMakeFiles/magiclamp.dir/magiclamp_autogen/mocs_compilation.cpp.o CMakeFiles/magiclamp.dir/magiclamp.cpp.o CMakeFiles/magiclamp.dir/main.cpp.o CMakeFiles/magiclamp.dir/magiclampconfig.cpp.o
-/usr/bin/ranlib ../../../lib/libmagiclamp.a

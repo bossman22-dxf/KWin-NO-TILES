@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/">
-    <file alias="/qt/qml/org/kde/kwin/outputlocator">/home/ty/kwin/src/build/bin/org/kde/kwin/outputlocator</file>
-
-  </qresource>
-</RCC>
