@@ -1,0 +1,64 @@
+name: Check CachyOS Upstream Patches
+
+on:
+  schedule:
+    # Runs every day at midnight (UTC) to keep pace with rolling releases
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify-cachyos-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository
+        uses: actions/checkout@v4
+
+      - name: Clone CachyOS PKGBUILDs
+        run: |
+          git clone --depth 1 https://github.com/CachyOS/Cachyos-pkgbuilds.git cachyos-repo
+
+      - name: Download and Verify Against Latest CachyOS Tarball
+        id: patch_check
+        run: |
+          # Source the CachyOS PKGBUILD variables directly to find the live target version
+          source cachyos-repo/kwin/PKGBUILD
+          
+          echo "Targeting CachyOS KWin version: \$pkgver"
+          
+          # Extract and download the specific tarball CachyOS uses
+          # Note: CachyOS handles specific mirrors; we fetch the core archive
+          TARBALL_URL="https://kde.org{pkgver}.tar.xz"
+          
+          # If it's a sub-release or minor update, fallback if needed
+          if ! curl -sSfO "\$TARBALL_URL"; then
+             # Alternate fallback to primary stable tree
+             _dirver=(echo pkgver | cut -d. -f1-3)
+             TARBALL_URL="https://kde.org\({_dirver}/kwin-\){pkgver}.tar.xz"
+             curl -sSfO "\$TARBALL_URL"
+          fi
+          
+          tar -xf kwin-\${pkgver}.tar.xz
+
+          # Mirror the exact prepare() block command from your PKGBUILD with a dry-run check
+          if ! patch --dry-run -d kwin-\${pkgver} -Np0 -i ../disable-native-tiling.patch; then
+            echo "CONFLICT_DETECTED=true" >> \$GITHUB_ENV
+            echo "Your patch fails against the rolling CachyOS package base!"
+            exit 1
+          fi
+          echo "Patch is perfectly compatible with the latest rolling CachyOS release."
+
+      - name: Open GitHub Issue on Failure
+        if: failure() && env.CONFLICT_DETECTED == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Patch conflict with rolling CachyOS update',
+              body: 'The automated check failed. CachyOS updated their package parameters or upstream files, causing a direct conflict with `disable-native-tiling.patch`. Update required.'
+            })
