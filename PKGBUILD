@@ -89,11 +89,9 @@ makedepends=(extra-cmake-modules
 optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
 
-# REMOVED: '{,.sig}' from the end of the KDE archive download string
-source=(https://kde.org
+source=("https://download.kde.org/stable/plasma/${pkgver}/kwin-${pkgver}.tar.xz"
         disable-native-tiling.patch)
 
-# REMOVED: 'SKIP' entry that belonged to the missing signature file
 sha256sums=('6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2'
             '345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5')
 
@@ -102,7 +100,7 @@ prepare() {
 }
 
 build() {
-  cmake -B build  -S kwin-$pkgver \
+  cmake -B build -S kwin-$pkgver \
     -DCMAKE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
