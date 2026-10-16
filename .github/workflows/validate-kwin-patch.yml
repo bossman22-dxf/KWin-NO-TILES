@@ -62,9 +62,9 @@ jobs:
             exit 1
           fi
 
-          expected_url="https://download.kde.org/stable/plasma/${KWIN_VERSION}/kwin-${KWIN_VERSION}.tar.xz"
+          expected_url='https://download.kde.org/stable/plasma/${pkgver}/kwin-${pkgver}.tar.xz'
           if ! grep -Fq "$expected_url" PKGBUILD; then
-            echo "::error::PKGBUILD does not contain the expected official KDE source URL: $expected_url"
+            echo "::error::PKGBUILD does not contain the expected official KDE source URL template: $expected_url"
             exit 1
           fi
 
