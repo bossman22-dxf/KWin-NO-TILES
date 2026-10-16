@@ -1,7 +1,4 @@
-# Maintainer: Felix Yan <felixonmars@archlinux.org>
-# Maintainer: Antonio Rojas <arojas@archlinux.org>
-# Contributor: Andrea Scarpino <andrea@archlinux.org>
-# EDITED BY: Bossman22-DXF
+# Maintainer: Bossman22-DXF
 
 pkgname=kwin-no-tiles
 pkgver=6.7.5
