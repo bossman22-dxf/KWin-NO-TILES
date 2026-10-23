@@ -36,7 +36,7 @@ jobs:
       TARGET_PKGREL: ${{ inputs.pkgrel }}
       REPO_VARIANT: ${{ inputs.repo_variant }}
       EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
-      EXPECTED_PATCH_SHA256: "9d616cfd85869e50fdb18bdb1fea2cd764ba753969da433882211c5e3e109e6c"
+      EXPECTED_PATCH_SHA256: "9c2cc6711479bb4c6068448c1ff530955210908e61bb4dec4ba5ad4fb576994d"
 
     steps:
       - name: Check out test branch
