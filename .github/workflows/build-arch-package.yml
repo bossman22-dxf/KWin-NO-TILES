@@ -29,13 +29,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
           pkgver="$(sed -n 's/^pkgver=//p' PKGBUILD)"
           if [[ "$pkgver" != "6.7.5" ]]; then
             echo "::error::Only the reviewed KWin 6.7.5 recipe is allowed in this initial build."
             exit 1
           fi
-
           expected_source_sha="6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2"
           expected_patch_sha="345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5"
           actual_patch_sha="$(sha256sum disable-native-tiling.patch | awk '{print $1}')"
@@ -61,8 +59,8 @@ jobs:
             --volume "$RUNNER_TEMP/kwin-no-tiles-output:/output" \
             archlinux:base-devel \
             bash -euo pipefail -c '
-              # KWin 6.7.5 needs the contemporaneous KDE API set, not today's rolling packages.
-              printf "%s\n" \
+              # Keep the snapshot config in /tmp instead of overwriting /etc/pacman.conf.
+              printf "%s\\n" \
                 "[options]" \
                 "Architecture = auto" \
                 "CheckSpace" \
@@ -70,16 +68,15 @@ jobs:
                 "LocalFileSigLevel = Optional" \
                 "" \
                 "[core]" \
-                "Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch" \
+                "Server = https://archive.archlinux.org/repos/2026/10/10/\\$repo/os/\\$arch" \
                 "" \
                 "[extra]" \
-                "Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch" \
-                > /etc/pacman.conf
-              # The host runner writes a report after the container exits.
+                "Server = https://archive.archlinux.org/repos/2026/10/10/\\$repo/os/\\$arch" \
+                > /tmp/pacman-kwin-no-tiles.conf
               chmod 0777 /output
-              pacman -Syyu --noconfirm --needed sudo git
+              pacman --config /tmp/pacman-kwin-no-tiles.conf -Syyu --noconfirm --needed sudo git
               echo "=== Snapshot package versions ==="
-              pacman -Q kwin kglobalaccel kglobalacceld qt6-base 2>/dev/null || true
+              pacman --config /tmp/pacman-kwin-no-tiles.conf -Q kwin kglobalaccel kglobalacceld qt6-base 2>/dev/null || true
               useradd --create-home builder
               printf "builder ALL=(root) NOPASSWD: /usr/bin/pacman\\n" > /etc/sudoers.d/kwin-builder
               chmod 0440 /etc/sudoers.d/kwin-builder
