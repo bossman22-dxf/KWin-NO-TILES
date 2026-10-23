@@ -36,7 +36,7 @@ jobs:
       TARGET_PKGREL: ${{ inputs.pkgrel }}
       REPO_VARIANT: ${{ inputs.repo_variant }}
       EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
-      EXPECTED_PATCH_SHA256: "ce1d04ec3d433615f82602b008e6d20afec18e85101517bfef73622a290b03f4"
+      EXPECTED_PATCH_SHA256: "6aae75198b0bd8514981bbdce121675b5d50f10638436e8e58980b2e9056171e"
 
     steps:
       - name: Check out test branch
@@ -114,6 +114,7 @@ jobs:
           src/window.cpp:1218:1240
           src/placement.cpp:758:794
           src/kcms/options/ui/MovementAndPlacement.qml:108:134
+          src/tiles/tile.cpp:95:145
           KWINSOURCE
 
           echo
