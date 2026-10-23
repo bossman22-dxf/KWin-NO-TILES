@@ -62,19 +62,19 @@ jobs:
             archlinux:base-devel \
             bash -euo pipefail -c '
               # KWin 6.7.5 needs the contemporaneous KDE API set, not today's rolling packages.
-              cat > /etc/pacman.conf <<EOF
-[options]
-Architecture = auto
-CheckSpace
-SigLevel = Required DatabaseOptional
-LocalFileSigLevel = Optional
-
-[core]
-Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch
-
-[extra]
-Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch
-EOF
+              printf "%s\n" \
+                "[options]" \
+                "Architecture = auto" \
+                "CheckSpace" \
+                "SigLevel = Required DatabaseOptional" \
+                "LocalFileSigLevel = Optional" \
+                "" \
+                "[core]" \
+                "Server = https://archive.archlinux.org/repos/2026/10/10/\\\$repo/os/\\\$arch" \
+                "" \
+                "[extra]" \
+                "Server = https://archive.archlinux.org/repos/2026/10/10/\\\$repo/os/\\\$arch" \
+                > /etc/pacman.conf
               # The host runner writes a report after the container exits.
               chmod 0777 /output
               pacman -Syyu --noconfirm --needed sudo git
