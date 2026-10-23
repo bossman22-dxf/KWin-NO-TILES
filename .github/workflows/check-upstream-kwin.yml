@@ -1,0 +1,91 @@
+name: Check upstream KWin metadata
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 8 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kwin-no-tiles-upstream-check
+  cancel-in-progress: true
+
+jobs:
+  check-upstream:
+    name: Compare upstream Arch KWin metadata
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the test branch
+        uses: actions/checkout@v5
+        with:
+          ref: test
+
+      - name: Compare upstream and reviewed package metadata
+        id: compare
+        shell: bash
+        run: |
+          set -euo pipefail
+          upstream_url="https://gitlab.archlinux.org/archlinux/packaging/packages/kwin/-/raw/main/PKGBUILD"
+          upstream_file="$RUNNER_TEMP/upstream-kwin-PKGBUILD"
+          curl --fail --silent --show-error --location "$upstream_url" --output "$upstream_file"
+
+          upstream_pkgver="$(sed -n 's/^pkgver=//p' "$upstream_file" | head -n 1)"
+          upstream_pkgrel="$(sed -n 's/^pkgrel=//p' "$upstream_file" | head -n 1)"
+          local_pkgver="$(sed -n 's/^pkgver=//p' PKGBUILD | head -n 1)"
+          local_pkgrel="$(sed -n 's/^pkgrel=//p' PKGBUILD | head -n 1)"
+
+          if [[ -z "$upstream_pkgver" || -z "$upstream_pkgrel" || -z "$local_pkgver" || -z "$local_pkgrel" ]]; then
+            echo "::error::Could not safely read pkgver/pkgrel from upstream or local PKGBUILD."
+            exit 1
+          fi
+
+          mkdir -p "$RUNNER_TEMP/kwin-upstream-review"
+          {
+            echo "Upstream Arch KWin packaging metadata"
+            echo "======================================"
+            echo "Source: $upstream_url"
+            echo "Checked at (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo
+            echo "Upstream pkgver-pkgrel: $upstream_pkgver-$upstream_pkgrel"
+            echo "Local reviewed pkgver-pkgrel: $local_pkgver-$local_pkgrel"
+            echo
+            if [[ "$upstream_pkgver" == "$local_pkgver" && "$upstream_pkgrel" == "$local_pkgrel" ]]; then
+              echo "Status: MATCH"
+              echo "No version/release metadata change detected."
+              echo "This check does not authorize or trigger a package build."
+              echo "Source checksums, dependencies, patch applicability, and the Arch Archive snapshot still require review."
+              review_required=false
+            else
+              echo "Status: REVIEW REQUIRED"
+              echo "Upstream metadata differs from the local reviewed recipe."
+              echo "Do not update the build recipe until the source, checksum, dependencies, patch, and compatible build snapshot have been reviewed."
+              echo "This check does not authorize or trigger a package build."
+              review_required=true
+            fi
+          } | tee "$RUNNER_TEMP/kwin-upstream-review/review-report.txt"
+
+          echo "pkgver=$upstream_pkgver" >> "$GITHUB_OUTPUT"
+          echo "pkgrel=$upstream_pkgrel" >> "$GITHUB_OUTPUT"
+          echo "review_required=$review_required" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Upstream KWin metadata check"
+            echo
+            echo "- Upstream Arch metadata: `$upstream_pkgver-$upstream_pkgrel`"
+            echo "- Local reviewed recipe: `$local_pkgver-$local_pkgrel`"
+            if [[ "$review_required" == true ]]; then
+              echo "- **Review required:** upstream metadata differs. No package build was started."
+            else
+              echo "- Metadata matches. No package build was started."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload metadata review report
+        uses: actions/upload-artifact@v6
+        with:
+          name: kwin-upstream-review-${{ steps.compare.outputs.pkgver }}-${{ steps.compare.outputs.pkgrel }}
+          path: ${{ runner.temp }}/kwin-upstream-review/review-report.txt
+          if-no-files-found: error
+          retention-days: 30
