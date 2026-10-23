@@ -1,4 +1,4 @@
-name: Build Arch package
+name: LEGACY - Build Arch package (KWin 6.7.5 only)
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build-arch-package:
-    name: Build KWin NO-TILES on Arch Linux
+    name: Legacy Arch build (KWin 6.7.5 only; not for CachyOS 6.8.1)
     runs-on: ubuntu-24.04
     timeout-minutes: 180
 

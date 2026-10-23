@@ -1,0 +1,178 @@
+name: Build CachyOS KWin 6.8.1 NO-TILES (v3)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kwin-no-tiles-cachyos-v3-build
+  cancel-in-progress: false
+
+jobs:
+  build-cachyos-v3:
+    name: Build KWin 6.8.1 NO-TILES for CachyOS v3
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+
+    env:
+      TARGET_KWIN_VERSION: "6.8.1-2.1"
+      EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
+      EXPECTED_PATCH_SHA256: "6aae75198b0bd8514981bbdce121675b5d50f10638436e8e58980b2e9056171e"
+
+    steps:
+      - name: Check out test branch
+        uses: actions/checkout@v5
+        with:
+          ref: test
+
+      - name: Verify KWin 6.8.1 source and reviewed patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          pkgver="$(sed -n 's/^pkgver=//p' PKGBUILD | head -n 1)"
+          pkgrel="$(sed -n 's/^pkgrel=//p' PKGBUILD | head -n 1)"
+          [[ "$pkgver-$pkgrel" == "$TARGET_KWIN_VERSION" ]] || {
+            echo "::error::PKGBUILD targets $pkgver-$pkgrel, expected $TARGET_KWIN_VERSION."
+            exit 1
+          }
+          actual_patch_sha="$(sha256sum disable-native-tiling-6.8.patch | awk '{print $1}')"
+          [[ "$actual_patch_sha" == "$EXPECTED_PATCH_SHA256" ]] || {
+            echo "::error::Reviewed patch checksum mismatch."
+            exit 1
+          }
+          tmpdir="$(mktemp -d)"
+          trap 'rm -rf "$tmpdir"' EXIT
+          archive="$tmpdir/kwin-${pkgver}.tar.xz"
+          curl --fail --silent --show-error --location --retry 3 \
+            "https://download.kde.org/stable/plasma/${pkgver}/kwin-${pkgver}.tar.xz" \
+            --output "$archive"
+          actual_source_sha="$(sha256sum "$archive" | awk '{print $1}')"
+          [[ "$actual_source_sha" == "$EXPECTED_SOURCE_SHA256" ]] || {
+            echo "::error::KWin source checksum mismatch."
+            exit 1
+          }
+          tar -xf "$archive" -C "$tmpdir"
+          patch --dry-run --batch --fuzz=0 \
+            -d "$tmpdir/kwin-${pkgver}" -Np0 \
+            -i "$GITHUB_WORKSPACE/disable-native-tiling-6.8.patch"
+          echo "KWin 6.8.1 source checksum: PASS"
+          echo "Patch checksum and zero-fuzz applicability: PASS"
+
+      - name: Build package in the live CachyOS v3 environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          output="$RUNNER_TEMP/kwin-no-tiles-cachyos-v3-output"
+          mkdir -p "$output"
+          chmod 0777 "$output"
+          docker run --rm --user 0:0 \
+            --volume "$GITHUB_WORKSPACE:/input:ro" \
+            --volume "$output:/output" \
+            --env EXPECTED_KWIN_VERSION="$TARGET_KWIN_VERSION" \
+            cachyos/cachyos:latest \
+            bash -euo pipefail -c '
+              config=/tmp/pacman-kwin-no-tiles.conf
+              {
+                printf "%s\n" \
+                  "[options]" \
+                  "Architecture = auto" \
+                  "CheckSpace" \
+                  "SigLevel = Required DatabaseOptional" \
+                  "LocalFileSigLevel = Optional" \
+                  "" \
+                  "[cachyos-v3]" \
+                  "Include = /etc/pacman.d/cachyos-v3-mirrorlist" \
+                  "" \
+                  "[cachyos-core-v3]" \
+                  "Include = /etc/pacman.d/cachyos-v3-mirrorlist" \
+                  "" \
+                  "[cachyos-extra-v3]" \
+                  "Include = /etc/pacman.d/cachyos-v3-mirrorlist" \
+                  "" \
+                  "[cachyos]" \
+                  "Include = /etc/pacman.d/cachyos-mirrorlist" \
+                  "" \
+                  "[core]" \
+                  "Include = /etc/pacman.d/mirrorlist" \
+                  "" \
+                  "[extra]" \
+                  "Include = /etc/pacman.d/mirrorlist"
+              } > "$config"
+              install -m 0644 "$config" /etc/pacman.conf
+              pacman -Syy --noconfirm
+              info="$(pacman -Si kwin)"
+              actual_version="$(printf "%s\n" "$info" | sed -n "s/^Version[[:space:]]*:[[:space:]]*//p" | head -n 1)"
+              printf "%s\n" "$info" | grep -E "^(Repository|Name|Version)[[:space:]]*:"
+              [[ "$actual_version" == "$EXPECTED_KWIN_VERSION" ]] || {
+                echo "::error::The live CachyOS v3 repo now provides $actual_version, expected $EXPECTED_KWIN_VERSION."
+                exit 1
+              }
+              pacman -Syu --noconfirm --needed base-devel sudo git
+              echo "=== Build compiler flags from CachyOS makepkg.conf ==="
+              grep -E "^(CFLAGS|CXXFLAGS|LDFLAGS|MAKEFLAGS)=" /etc/makepkg.conf || true
+              chmod 0777 /output
+              useradd --create-home builder
+              printf "builder ALL=(root) NOPASSWD: /usr/bin/pacman\n" > /etc/sudoers.d/kwin-builder
+              chmod 0440 /etc/sudoers.d/kwin-builder
+              install -d -o builder -g builder /home/builder/build
+              cp -a /input/. /home/builder/build/
+              chown -R builder:builder /home/builder/build
+              cd /home/builder/build
+              runuser -u builder -- makepkg --printsrcinfo > /output/SRCINFO.generated
+              runuser -u builder -- makepkg --syncdeps --noconfirm --cleanbuild
+              shopt -s nullglob
+              packages=(/home/builder/build/*.pkg.tar.zst)
+              [[ ${#packages[@]} -eq 1 ]] || {
+                echo "Expected exactly one built package, got ${#packages[@]}."
+                exit 1
+              }
+              cp -v "${packages[0]}" /output/
+              package=(/output/*.pkg.tar.zst)
+              [[ ${#package[@]} -eq 1 ]] || {
+                echo "Expected exactly one output package, got ${#package[@]}."
+                exit 1
+              }
+              bsdtar -xOf "${package[0]}" .PKGINFO | tee /output/PKGINFO.txt
+              grep -Fq "pkgname = kwin-no-tiles" /output/PKGINFO.txt
+              grep -Fq "pkgver = 6.8.1-2.1" /output/PKGINFO.txt
+              echo "Package metadata verification: PASS"
+            '
+
+      - name: Record build report
+        if: always()
+        shell: bash
+        run: |
+          report="$RUNNER_TEMP/kwin-no-tiles-cachyos-v3-output/build-report.txt"
+          mkdir -p "$(dirname "$report")"
+          {
+            echo "Repository: bossman22-dxf/KWin-NO-TILES"
+            echo "Branch: test"
+            echo "Target package: kwin-no-tiles 6.8.1-2.1"
+            echo "Target repo family: CachyOS v3"
+            echo "Build job result: ${{ job.status }}"
+            echo "Build type: manual workflow_dispatch only"
+            echo "Release published: no"
+            echo "Install performed: no"
+            echo
+            if [[ -f "$RUNNER_TEMP/kwin-no-tiles-cachyos-v3-output/PKGINFO.txt" ]]; then
+              echo "Package metadata:"
+              grep -E "^(pkgname|pkgver|arch|size|builddate) = " "$RUNNER_TEMP/kwin-no-tiles-cachyos-v3-output/PKGINFO.txt" || true
+            else
+              echo "Package metadata was not produced; inspect the failed build step logs."
+            fi
+          } > "$report"
+
+      - name: Upload package and build report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kwin-no-tiles-6.8.1-2.1-cachyos-v3-test
+          path: |
+            ${{ runner.temp }}/kwin-no-tiles-cachyos-v3-output/*.pkg.tar.zst
+            ${{ runner.temp }}/kwin-no-tiles-cachyos-v3-output/SRCINFO.generated
+            ${{ runner.temp }}/kwin-no-tiles-cachyos-v3-output/PKGINFO.txt
+            ${{ runner.temp }}/kwin-no-tiles-cachyos-v3-output/build-report.txt
+          if-no-files-found: warn
+          retention-days: 14

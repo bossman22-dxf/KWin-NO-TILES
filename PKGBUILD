@@ -1,15 +1,15 @@
 # Maintainer: Bossman22-DXF
 
 pkgname=kwin-no-tiles
-pkgver=6.7.5
+pkgver=6.8.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=2.1
 pkgdesc='A Wayland compositor edited by Bossman22 (Patched)'
 arch=(x86_64)
 url='https://kde.org'
 license=(LGPL-2.0-or-later)
 
-# CRITICAL GUARDS: Tells pacman this explicitly replaces and satisfies stock KWin
+# Explicitly replaces and satisfies stock KWin at the matching upstream version.
 provides=("kwin=$pkgver")
 conflicts=('kwin')
 
@@ -87,13 +87,13 @@ optdepends=('plasma-keyboard: virtual keyboard')
 groups=(plasma)
 
 source=("https://download.kde.org/stable/plasma/${pkgver}/kwin-${pkgver}.tar.xz"
-        disable-native-tiling.patch)
+        disable-native-tiling-6.8.patch)
 
-sha256sums=('6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2'
-            '345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5')
+sha256sums=('f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6'
+            '6aae75198b0bd8514981bbdce121675b5d50f10638436e8e58980b2e9056171e')
 
 prepare() {
-  patch -d kwin-$pkgver -Np0 -i ../disable-native-tiling.patch
+  patch -d kwin-$pkgver -Np0 -i ../disable-native-tiling-6.8.patch
 }
 
 build() {
