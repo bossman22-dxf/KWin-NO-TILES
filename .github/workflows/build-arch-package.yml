@@ -67,10 +67,10 @@ SigLevel = Required DatabaseOptional
 LocalFileSigLevel = Optional
 
 [core]
-Server = https://archive.archlinux.org/repos/2026/10/10/$repo/os/$arch
+Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch
 
 [extra]
-Server = https://archive.archlinux.org/repos/2026/10/10/$repo/os/$arch
+Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch
 EOF
               # The host runner writes a report after the container exits.
               chmod 0777 /output
