@@ -1,0 +1,167 @@
+name: Preflight KWin 6.8.1 update
+
+on:
+  workflow_dispatch:
+    inputs:
+      pkgrel:
+        description: "Requested package release to compare with stock Arch KWin"
+        required: true
+        default: "2.1"
+        type: string
+      snapshot_date:
+        description: "Arch Linux Archive snapshot date (YYYY-MM-DD)"
+        required: true
+        default: "2026-10-23"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kwin-no-tiles-6-8-1-preflight
+  cancel-in-progress: true
+
+jobs:
+  preflight:
+    name: Verify KWin source, patch and repository snapshot
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    env:
+      TARGET_PKGVER: "6.8.1"
+      TARGET_PKGREL: ${{ inputs.pkgrel }}
+      SNAPSHOT_DATE: ${{ inputs.snapshot_date }}
+      EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
+      EXPECTED_PATCH_SHA256: "345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5"
+
+    steps:
+      - name: Check out test branch
+        uses: actions/checkout@v5
+        with:
+          ref: test
+
+      - name: Verify the official KDE source and test patch applicability
+        shell: bash
+        run: |
+          set -euo pipefail
+          report="$RUNNER_TEMP/kwin-6.8.1-preflight-report.txt"
+          touch "$report"
+          exec > >(tee -a "$report") 2>&1
+
+          echo "KWin NO-TILES preflight"
+          echo "======================="
+          echo "Target package: ${TARGET_PKGVER}-${TARGET_PKGREL}"
+          echo "Arch Linux Archive snapshot: ${SNAPSHOT_DATE}"
+          echo "Started (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo
+
+          [[ "$TARGET_PKGREL" =~ ^[0-9]+([.][0-9]+)*$ ]] || {
+            echo "::error::Invalid package release: $TARGET_PKGREL"
+            exit 1
+          }
+          [[ "$SNAPSHOT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || {
+            echo "::error::Snapshot date must be YYYY-MM-DD."
+            exit 1
+          }
+          [[ "$(date -u -d "$SNAPSHOT_DATE" +%F)" == "$SNAPSHOT_DATE" ]] || {
+            echo "::error::Snapshot date is not a valid calendar date."
+            exit 1
+          }
+
+          actual_patch_sha="$(sha256sum disable-native-tiling.patch | awk '{print $1}')"
+          echo "Patch SHA-256: $actual_patch_sha"
+          [[ "$actual_patch_sha" == "$EXPECTED_PATCH_SHA256" ]] || {
+            echo "::error::Patch differs from the currently reviewed patch; stop and review it before continuing."
+            exit 1
+          }
+
+          tmpdir="$(mktemp -d)"
+          trap 'rm -rf "$tmpdir"' EXIT
+          archive="$tmpdir/kwin-${TARGET_PKGVER}.tar.xz"
+          source_url="https://download.kde.org/stable/plasma/${TARGET_PKGVER}/kwin-${TARGET_PKGVER}.tar.xz"
+
+          echo "Downloading official KDE source: $source_url"
+          curl --fail --silent --show-error --location --retry 3 "$source_url" --output "$archive"
+          actual_source_sha="$(sha256sum "$archive" | awk '{print $1}')"
+          echo "Expected source SHA-256: $EXPECTED_SOURCE_SHA256"
+          echo "Actual source SHA-256:   $actual_source_sha"
+          [[ "$actual_source_sha" == "$EXPECTED_SOURCE_SHA256" ]] || {
+            echo "::error::The KDE source checksum does not match the independently reviewed value."
+            exit 1
+          }
+
+          tar -xf "$archive" -C "$tmpdir"
+          source_dir="$tmpdir/kwin-${TARGET_PKGVER}"
+          [[ -d "$source_dir" ]] || {
+            echo "::error::Expected source directory was not found after extraction."
+            exit 1
+          }
+
+          echo
+          echo "Testing patch with zero fuzz and no source modifications..."
+          patch --dry-run --batch --fuzz=0 -d "$source_dir" -Np0 -i "$GITHUB_WORKSPACE/disable-native-tiling.patch"
+          echo "Patch applicability: PASS"
+          echo
+          echo "Source and patch preflight: PASS"
+
+      - name: Check candidate Arch Linux Archive snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          report="$RUNNER_TEMP/kwin-6.8.1-preflight-report.txt"
+          exec > >(tee -a "$report") 2>&1
+
+          echo
+          echo "Candidate snapshot package versions"
+          echo "==================================="
+          docker run --rm --user 0:0 \
+            --env SNAPSHOT_DATE="$SNAPSHOT_DATE" \
+            --env EXPECTED_KWIN_VERSION="${TARGET_PKGVER}-${TARGET_PKGREL}" \
+            archlinux:base-devel \
+            bash -euo pipefail -c '
+              repo_date="${SNAPSHOT_DATE//-/\/}"
+              config=/tmp/pacman-kwin-preflight.conf
+              printf "%s\\n" \
+                "[options]" \
+                "Architecture = auto" \
+                "SigLevel = Required DatabaseOptional" \
+                "LocalFileSigLevel = Optional" \
+                "" \
+                "[core]" \
+                "Server = https://archive.archlinux.org/repos/${repo_date}/core/os/x86_64" \
+                "" \
+                "[extra]" \
+                "Server = https://archive.archlinux.org/repos/${repo_date}/extra/os/x86_64" \
+                > "$config"
+
+              pacman --config "$config" -Syy --noconfirm
+
+              info="$(pacman --config "$config" -Si kwin)"
+              printf "%s\\n" "$info" | grep -E "^(Repository|Name|Version)[[:space:]]*:"
+              actual_version="$(printf "%s\\n" "$info" | awk "/^Version/{print \\$3; exit}")"
+              echo "Requested stock KWin version-release: $EXPECTED_KWIN_VERSION"
+              echo "Snapshot stock KWin version-release:  $actual_version"
+
+              for package in libplasma qt6-base kglobalaccel kglobalacceld plasma-activities; do
+                info="$(pacman --config "$config" -Si "$package")"
+                printf "%s\\n" "$info" | grep -E "^(Name|Version)[[:space:]]*:"
+              done
+
+              if [[ "$actual_version" != "$EXPECTED_KWIN_VERSION" ]]; then
+                echo "::error::The snapshot stock KWin is $actual_version, not $EXPECTED_KWIN_VERSION. Do not build with a mismatched release; re-check upstream Arch metadata and choose a compatible snapshot."
+                exit 1
+              fi
+            '
+
+          echo
+          echo "Snapshot preflight: PASS"
+          echo "This workflow does not build or publish a package."
+
+      - name: Upload preflight report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kwin-6.8.1-${{ inputs.pkgrel }}-preflight-${{ inputs.snapshot_date }}
+          path: ${{ runner.temp }}/kwin-6.8.1-preflight-report.txt
+          if-no-files-found: warn
+          retention-days: 30
