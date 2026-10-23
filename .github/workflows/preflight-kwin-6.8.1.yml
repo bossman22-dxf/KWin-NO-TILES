@@ -36,7 +36,7 @@ jobs:
       TARGET_PKGREL: ${{ inputs.pkgrel }}
       REPO_VARIANT: ${{ inputs.repo_variant }}
       EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
-      EXPECTED_PATCH_SHA256: "9c2cc6711479bb4c6068448c1ff530955210908e61bb4dec4ba5ad4fb576994d"
+      EXPECTED_PATCH_SHA256: "ce1d04ec3d433615f82602b008e6d20afec18e85101517bfef73622a290b03f4"
 
     steps:
       - name: Check out test branch
@@ -96,6 +96,25 @@ jobs:
             echo "::error::Expected source directory was not found after extraction."
             exit 1
           }
+
+          echo
+          echo "Exact context from the downloaded KDE source archive"
+          echo "==================================================="
+          while IFS=: read -r relative_path first_line last_line; do
+            echo
+            echo "--- $relative_path lines $first_line-$last_line ---"
+            nl -ba "$source_dir/$relative_path" | sed -n "${first_line},${last_line}p"
+          done <<'KWINSOURCE'
+          src/options.h:165:185
+          src/options.h:603:620
+          src/options.h:708:722
+          src/options.h:886:902
+          src/options.h:956:972
+          src/options.cpp:742:772
+          src/window.cpp:1218:1240
+          src/placement.cpp:758:794
+          src/kcms/options/ui/MovementAndPlacement.qml:108:134
+          KWINSOURCE
 
           echo
           echo "Testing patch with zero fuzz and no source modifications..."
