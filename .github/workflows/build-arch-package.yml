@@ -1,0 +1,107 @@
+name: Build Arch package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kwin-no-tiles-arch-build
+  cancel-in-progress: false
+
+jobs:
+  build-arch-package:
+    name: Build KWin NO-TILES on Arch Linux
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+
+    steps:
+      - name: Check out test branch
+        uses: actions/checkout@v5
+        with:
+          ref: test
+
+      - name: Verify the reviewed KWin source and patch
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          pkgver="$(sed -n 's/^pkgver=//p' PKGBUILD)"
+          if [[ "$pkgver" != "6.7.5" ]]; then
+            echo "::error::Only the reviewed KWin 6.7.5 recipe is allowed in this initial build."
+            exit 1
+          fi
+
+          expected_source_sha="6baa910b732d93c48c90f9c1cc685cc93d0b8de0cdf138c24192c045bc3a48e2"
+          expected_patch_sha="345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5"
+
+          actual_patch_sha="$(sha256sum disable-native-tiling.patch | awk '{print $1}')"
+          if [[ "$actual_patch_sha" != "$expected_patch_sha" ]]; then
+            echo "::error::Patch checksum differs from the reviewed patch."
+            exit 1
+          fi
+
+          grep -Fq "$expected_source_sha" PKGBUILD || {
+            echo "::error::PKGBUILD does not contain the reviewed KWin source checksum."
+            exit 1
+          }
+
+          echo "KWin version: $pkgver"
+          echo "Patch SHA-256: $actual_patch_sha"
+          echo "The build is limited to the reviewed source and patch."
+
+      - name: Build package in a clean Arch Linux container as a non-root user
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/kwin-no-tiles-output"
+
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/input:ro" \
+            --volume "$RUNNER_TEMP/kwin-no-tiles-output:/output" \
+            archlinux:base-devel \
+            bash -euo pipefail -c '
+              pacman -Syu --noconfirm --needed sudo git
+
+              useradd --create-home builder
+              printf "builder ALL=(root) NOPASSWD: /usr/bin/pacman\n" > /etc/sudoers.d/kwin-builder
+              chmod 0440 /etc/sudoers.d/kwin-builder
+
+              install -d -o builder -g builder /home/builder/build
+              cp -a /input/. /home/builder/build/
+              chown -R builder:builder /home/builder/build
+
+              runuser -u builder -- bash -euo pipefail -c "
+                cd /home/builder/build
+                makepkg --printsrcinfo > /output/SRCINFO.generated
+                makepkg --syncdeps --noconfirm --cleanbuild
+                cp -v ./*.pkg.tar.zst /output/
+              "
+            '
+
+      - name: Record build metadata
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "Repository: bossman22-dxf/KWin-NO-TILES"
+            echo "Branch: test"
+            echo "KWin recipe version: $(sed -n 's/^pkgver=//p' PKGBUILD 2>/dev/null || echo unavailable)"
+            echo "Build result: ${{ job.status }}"
+            echo "Build environment: clean Arch Linux base-devel container"
+            echo "Build user: non-root (builder)"
+            echo "No release was created and no notifications were sent."
+          } > "$RUNNER_TEMP/kwin-no-tiles-output/build-report.txt"
+
+      - name: Upload package and generated metadata
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kwin-no-tiles-arch-build
+          path: |
+            ${{ runner.temp }}/kwin-no-tiles-output/*.pkg.tar.zst
+            ${{ runner.temp }}/kwin-no-tiles-output/SRCINFO.generated
+            ${{ runner.temp }}/kwin-no-tiles-output/build-report.txt
+          if-no-files-found: warn
+          retention-days: 14
