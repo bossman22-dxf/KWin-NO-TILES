@@ -73,6 +73,8 @@ jobs:
                 "[extra]" \
                 "Server = https://archive.archlinux.org/repos/2026/10/10/\$repo/os/\$arch" \
                 > /tmp/pacman-kwin-no-tiles.conf
+              # Make dependency installs use the same dated repositories as the package databases.
+              install -m 0644 /tmp/pacman-kwin-no-tiles.conf /etc/pacman.conf
               chmod 0777 /output
               pacman --config /tmp/pacman-kwin-no-tiles.conf -Syyu --noconfirm --needed sudo git
               echo "=== Snapshot package versions ==="
