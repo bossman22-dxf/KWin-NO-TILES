@@ -69,6 +69,7 @@ jobs:
               chmod 0440 /etc/sudoers.d/kwin-builder
 
               install -d -o builder -g builder /home/builder/build
+              chown builder:builder /output
               cp -a /input/. /home/builder/build/
               chown -R builder:builder /home/builder/build
 
