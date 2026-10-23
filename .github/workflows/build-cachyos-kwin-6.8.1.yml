@@ -111,19 +111,19 @@ jobs:
               }
               pacman -Syu --noconfirm --needed base-devel sudo git
 
-              # Build for the user's Ryzen 9 3950X (Zen 2) / x86-64-v3 baseline,
-              # not for the GitHub runner's host CPU.
-              sed -i 's/-march=native/-march=x86-64-v3 -mtune=znver2/g' /etc/makepkg.conf
-              if grep -q -- '-march=native' /etc/makepkg.conf; then
+              # Build for Ryzen 9 3950X (Zen 2) / x86-64-v3 baseline;
+              # avoid tuning the build for the GitHub runner CPU.
+              sed -i "s/-march=native/-march=x86-64-v3 -mtune=znver2/g" /etc/makepkg.conf
+              if grep -q -- "-march=native" /etc/makepkg.conf; then
                 echo "::error::Unexpected -march=native remains in makepkg.conf."
                 exit 1
               fi
-              grep -Fq -- '-march=x86-64-v3 -mtune=znver2' /etc/makepkg.conf || {
+              grep -Fq -- "-march=x86-64-v3 -mtune=znver2" /etc/makepkg.conf || {
                 echo "::error::Expected x86-64-v3 / Zen 2 compiler flags were not applied."
                 exit 1
               }
               echo "=== Verified target compiler flags ==="
-              grep -E '^(CFLAGS|CXXFLAGS|LDFLAGS|MAKEFLAGS)=' /etc/makepkg.conf || true
+              grep -E "^(CFLAGS|CXXFLAGS|LDFLAGS|MAKEFLAGS)=" /etc/makepkg.conf || true
               chmod 0777 /output
               useradd --create-home builder
               printf "builder ALL=(root) NOPASSWD: /usr/bin/pacman\n" > /etc/sudoers.d/kwin-builder
