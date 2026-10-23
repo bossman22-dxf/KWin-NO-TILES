@@ -36,7 +36,7 @@ jobs:
       TARGET_PKGREL: ${{ inputs.pkgrel }}
       REPO_VARIANT: ${{ inputs.repo_variant }}
       EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
-      EXPECTED_PATCH_SHA256: "345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5"
+      EXPECTED_PATCH_SHA256: "9d616cfd85869e50fdb18bdb1fea2cd764ba753969da433882211c5e3e109e6c"
 
     steps:
       - name: Check out test branch
@@ -68,7 +68,7 @@ jobs:
             exit 1
           }
 
-          actual_patch_sha="$(sha256sum disable-native-tiling.patch | awk '{print $1}')"
+          actual_patch_sha="$(sha256sum disable-native-tiling-6.8.patch | awk '{print $1}')"
           echo "Patch SHA-256: $actual_patch_sha"
           [[ "$actual_patch_sha" == "$EXPECTED_PATCH_SHA256" ]] || {
             echo "::error::Patch differs from the currently reviewed patch; stop and review it before continuing."
@@ -99,7 +99,7 @@ jobs:
 
           echo
           echo "Testing patch with zero fuzz and no source modifications..."
-          patch --dry-run --batch --fuzz=0 -d "$source_dir" -Np0 -i "$GITHUB_WORKSPACE/disable-native-tiling.patch"
+          patch --dry-run --batch --fuzz=0 -d "$source_dir" -Np0 -i "$GITHUB_WORKSPACE/disable-native-tiling-6.8.patch"
           echo "Patch applicability: PASS"
           echo "KDE source and patch preflight: PASS"
 
