@@ -25,6 +25,17 @@ jobs:
         with:
           ref: test
 
+      - name: Read package metadata
+        id: package-metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          pkgver="$(sed -n 's/^pkgver=//p' PKGBUILD | head -n 1)"
+          pkgrel="$(sed -n 's/^pkgrel=//p' PKGBUILD | head -n 1)"
+          [[ -n "$pkgver" && -n "$pkgrel" ]]
+          echo "pkgver=$pkgver" >> "$GITHUB_OUTPUT"
+          echo "pkgrel=$pkgrel" >> "$GITHUB_OUTPUT"
+
       - name: Verify the reviewed KWin source and patch
         shell: bash
         run: |
@@ -100,7 +111,7 @@ jobs:
           {
             echo "Repository: bossman22-dxf/KWin-NO-TILES"
             echo "Branch: test"
-            echo "KWin recipe version: $(sed -n 's/^pkgver=//p' PKGBUILD 2>/dev/null || echo unavailable)"
+            echo "KWin package version: $(sed -n 's/^pkgver=//p' PKGBUILD 2>/dev/null | head -n 1 || echo unavailable)-$(sed -n 's/^pkgrel=//p' PKGBUILD 2>/dev/null | head -n 1 || echo unavailable)"
             echo "Build result: ${{ job.status }}"
             echo "Build environment: Arch Linux Archive snapshot dated 2026-10-10"
             echo "Build user: non-root (builder)"
@@ -111,7 +122,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: kwin-no-tiles-arch-build
+          name: kwin-no-tiles-${{ steps.package-metadata.outputs.pkgver }}-${{ steps.package-metadata.outputs.pkgrel }}-arch-build
           path: |
             ${{ runner.temp }}/kwin-no-tiles-output/*.pkg.tar.zst
             ${{ runner.temp }}/kwin-no-tiles-output/SRCINFO.generated
