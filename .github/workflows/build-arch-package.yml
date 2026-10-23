@@ -2,9 +2,6 @@ name: Build Arch package
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - test
 
 permissions:
   contents: read
