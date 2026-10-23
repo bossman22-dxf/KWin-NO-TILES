@@ -138,7 +138,7 @@ jobs:
 
               info="$(pacman --config "$config" -Si kwin)"
               printf "%s\\n" "$info" | grep -E "^(Repository|Name|Version)[[:space:]]*:"
-              actual_version="$(printf "%s\\n" "$info" | awk "/^Version/{print \\$3; exit}")"
+              actual_version="$(printf "%s\\n" "$info" | sed -n "s/^Version[[:space:]]*:[[:space:]]*//p" | head -n 1)"
               echo "Requested stock KWin version-release: $EXPECTED_KWIN_VERSION"
               echo "Snapshot stock KWin version-release:  $actual_version"
 
