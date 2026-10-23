@@ -146,17 +146,14 @@ jobs:
               case "$REPO_VARIANT" in
                 v3)
                   opt="v3"
-                  repo_arch="x86_64_v3"
                   mirror="/etc/pacman.d/cachyos-v3-mirrorlist"
                   ;;
                 v4)
                   opt="v4"
-                  repo_arch="x86_64_v4"
                   mirror="/etc/pacman.d/cachyos-v4-mirrorlist"
                   ;;
                 znver4)
                   opt="znver4"
-                  repo_arch="x86_64_v4"
                   mirror="/etc/pacman.d/cachyos-v4-mirrorlist"
                   ;;
                 *)
@@ -165,9 +162,10 @@ jobs:
                   ;;
               esac
 
+              # Keep Architecture=auto so CachyOS mirrorlist tokens such as $arch_v3 and $arch_v4 expand correctly.
               config=/tmp/pacman-kwin-no-tiles.conf
               {
-                printf "%s\\n" "[options]" "Architecture = $repo_arch" "SigLevel = Required DatabaseOptional" "LocalFileSigLevel = Optional" ""
+                printf "%s\\n" "[options]" "Architecture = auto" "SigLevel = Required DatabaseOptional" "LocalFileSigLevel = Optional" ""
                 printf "[cachyos-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
                 printf "[cachyos-core-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
                 printf "[cachyos-extra-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
