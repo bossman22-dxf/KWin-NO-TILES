@@ -1,36 +1,40 @@
-name: Preflight KWin 6.8.1 update
+name: Preflight KWin 6.8.1 for CachyOS
 
 on:
   workflow_dispatch:
     inputs:
       pkgrel:
-        description: "Requested package release to compare with stock Arch KWin"
+        description: "CachyOS KWin package release to match"
         required: true
         default: "2.1"
         type: string
-      snapshot_date:
-        description: "Arch Linux Archive snapshot date (YYYY-MM-DD)"
+      repo_variant:
+        description: "CachyOS optimized repository to check"
         required: true
-        default: "2026-10-23"
-        type: string
+        default: "v3"
+        type: choice
+        options:
+          - v3
+          - v4
+          - znver4
 
 permissions:
   contents: read
 
 concurrency:
-  group: kwin-no-tiles-6-8-1-preflight
+  group: kwin-no-tiles-cachyos-preflight
   cancel-in-progress: true
 
 jobs:
   preflight:
-    name: Verify KWin source, patch and repository snapshot
+    name: Verify KWin source, patch and CachyOS package metadata
     runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     env:
       TARGET_PKGVER: "6.8.1"
       TARGET_PKGREL: ${{ inputs.pkgrel }}
-      SNAPSHOT_DATE: ${{ inputs.snapshot_date }}
+      REPO_VARIANT: ${{ inputs.repo_variant }}
       EXPECTED_SOURCE_SHA256: "f3d725f81061c1ba97fdef8aeb2101a5c5e03c77f11e9a2abaa1dfed4489d3b6"
       EXPECTED_PATCH_SHA256: "345e7f3a9a0a5cc553ba41ff2da98042904d7061d4a5b6138c786b5c14cdecf5"
 
@@ -44,14 +48,14 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          report="$RUNNER_TEMP/kwin-6.8.1-preflight-report.txt"
+          report="$RUNNER_TEMP/kwin-6.8.1-cachyos-preflight-report.txt"
           touch "$report"
           exec > >(tee -a "$report") 2>&1
 
-          echo "KWin NO-TILES preflight"
-          echo "======================="
+          echo "KWin NO-TILES CachyOS preflight"
+          echo "================================"
           echo "Target package: ${TARGET_PKGVER}-${TARGET_PKGREL}"
-          echo "Arch Linux Archive snapshot: ${SNAPSHOT_DATE}"
+          echo "CachyOS repository variant: ${REPO_VARIANT}"
           echo "Started (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           echo
 
@@ -59,12 +63,8 @@ jobs:
             echo "::error::Invalid package release: $TARGET_PKGREL"
             exit 1
           }
-          [[ "$SNAPSHOT_DATE" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || {
-            echo "::error::Snapshot date must be YYYY-MM-DD."
-            exit 1
-          }
-          [[ "$(date -u -d "$SNAPSHOT_DATE" +%F)" == "$SNAPSHOT_DATE" ]] || {
-            echo "::error::Snapshot date is not a valid calendar date."
+          [[ "$REPO_VARIANT" == "v3" || "$REPO_VARIANT" == "v4" || "$REPO_VARIANT" == "znver4" ]] || {
+            echo "::error::Unsupported CachyOS repository variant: $REPO_VARIANT"
             exit 1
           }
 
@@ -83,10 +83,10 @@ jobs:
           echo "Downloading official KDE source: $source_url"
           curl --fail --silent --show-error --location --retry 3 "$source_url" --output "$archive"
           actual_source_sha="$(sha256sum "$archive" | awk '{print $1}')"
-          echo "Expected source SHA-256: $EXPECTED_SOURCE_SHA256"
-          echo "Actual source SHA-256:   $actual_source_sha"
+          echo "Expected KDE source SHA-256: $EXPECTED_SOURCE_SHA256"
+          echo "Actual KDE source SHA-256:   $actual_source_sha"
           [[ "$actual_source_sha" == "$EXPECTED_SOURCE_SHA256" ]] || {
-            echo "::error::The KDE source checksum does not match the independently reviewed value."
+            echo "::error::The source checksum does not match the published KDE checksum."
             exit 1
           }
 
@@ -101,67 +101,87 @@ jobs:
           echo "Testing patch with zero fuzz and no source modifications..."
           patch --dry-run --batch --fuzz=0 -d "$source_dir" -Np0 -i "$GITHUB_WORKSPACE/disable-native-tiling.patch"
           echo "Patch applicability: PASS"
-          echo
-          echo "Source and patch preflight: PASS"
+          echo "KDE source and patch preflight: PASS"
 
-      - name: Check candidate Arch Linux Archive snapshot
+      - name: Check version and dependency availability in CachyOS repositories
         shell: bash
         run: |
           set -euo pipefail
-          report="$RUNNER_TEMP/kwin-6.8.1-preflight-report.txt"
-          exec > >(tee -a "$report") 2>&1
+          report="$RUNNER_TEMP/kwin-6.8.1-cachyos-preflight-report.txt"
+          {
+            echo
+            echo "CachyOS repository compatibility check"
+            echo "======================================"
+            echo "Repository variant: $REPO_VARIANT"
+            echo "Requested stock KWin version-release: ${TARGET_PKGVER}-${TARGET_PKGREL}"
+            echo "Repository data is live, not a dated historical snapshot."
+            echo "The build workflow must re-check repository metadata before compiling."
+          } | tee -a "$report"
 
-          echo
-          echo "Candidate snapshot package versions"
-          echo "==================================="
           docker run --rm --user 0:0 \
-            --env SNAPSHOT_DATE="$SNAPSHOT_DATE" \
+            --env REPO_VARIANT="$REPO_VARIANT" \
             --env EXPECTED_KWIN_VERSION="${TARGET_PKGVER}-${TARGET_PKGREL}" \
-            archlinux:base-devel \
+            cachyos/cachyos:latest \
             bash -euo pipefail -c '
-              repo_date="${SNAPSHOT_DATE//-/\/}"
-              config=/tmp/pacman-kwin-preflight.conf
-              printf "%s\\n" \
-                "[options]" \
-                "Architecture = auto" \
-                "SigLevel = Required DatabaseOptional" \
-                "LocalFileSigLevel = Optional" \
-                "" \
-                "[core]" \
-                "Server = https://archive.archlinux.org/repos/${repo_date}/core/os/x86_64" \
-                "" \
-                "[extra]" \
-                "Server = https://archive.archlinux.org/repos/${repo_date}/extra/os/x86_64" \
-                > "$config"
+              case "$REPO_VARIANT" in
+                v3)
+                  opt="v3"
+                  repo_arch="x86_64_v3"
+                  mirror="/etc/pacman.d/cachyos-v3-mirrorlist"
+                  ;;
+                v4)
+                  opt="v4"
+                  repo_arch="x86_64_v4"
+                  mirror="/etc/pacman.d/cachyos-v4-mirrorlist"
+                  ;;
+                znver4)
+                  opt="znver4"
+                  repo_arch="x86_64_v4"
+                  mirror="/etc/pacman.d/cachyos-v4-mirrorlist"
+                  ;;
+                *)
+                  echo "::error::Unsupported repository variant."
+                  exit 1
+                  ;;
+              esac
+
+              config=/tmp/pacman-kwin-no-tiles.conf
+              {
+                printf "%s\\n" "[options]" "Architecture = $repo_arch" "SigLevel = Required DatabaseOptional" "LocalFileSigLevel = Optional" ""
+                printf "[cachyos-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
+                printf "[cachyos-core-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
+                printf "[cachyos-extra-%s]\\nInclude = %s\\n\\n" "$opt" "$mirror"
+                printf "%s\\n" "[cachyos]" "Include = /etc/pacman.d/cachyos-mirrorlist" "" "[core]" "Include = /etc/pacman.d/mirrorlist" "" "[extra]" "Include = /etc/pacman.d/mirrorlist"
+              } > "$config"
 
               pacman --config "$config" -Syy --noconfirm
-
+              echo "=== Stock KWin from the selected CachyOS repository set ==="
               info="$(pacman --config "$config" -Si kwin)"
               printf "%s\\n" "$info" | grep -E "^(Repository|Name|Version)[[:space:]]*:"
+
               actual_version="$(printf "%s\\n" "$info" | sed -n "s/^Version[[:space:]]*:[[:space:]]*//p" | head -n 1)"
-              echo "Requested stock KWin version-release: $EXPECTED_KWIN_VERSION"
-              echo "Snapshot stock KWin version-release:  $actual_version"
-
-              for package in libplasma qt6-base kglobalaccel kglobalacceld plasma-activities; do
-                info="$(pacman --config "$config" -Si "$package")"
-                printf "%s\\n" "$info" | grep -E "^(Name|Version)[[:space:]]*:"
-              done
-
+              echo "Expected: $EXPECTED_KWIN_VERSION"
+              echo "Found:    $actual_version"
               if [[ "$actual_version" != "$EXPECTED_KWIN_VERSION" ]]; then
-                echo "::error::The snapshot stock KWin is $actual_version, not $EXPECTED_KWIN_VERSION. Do not build with a mismatched release; re-check upstream Arch metadata and choose a compatible snapshot."
+                echo "::error::Selected CachyOS repositories provide $actual_version, not $EXPECTED_KWIN_VERSION. Stop and reconcile the target version/release."
                 exit 1
               fi
-            '
 
-          echo
-          echo "Snapshot preflight: PASS"
-          echo "This workflow does not build or publish a package."
+              echo
+              echo "=== Relevant dependency versions ==="
+              for package in libplasma qt6-base kglobalaccel kglobalacceld plasma-activities extra-cmake-modules kdoctools plasma-wayland-protocols wayland-protocols; do
+                info="$(pacman --config "$config" -Si "$package")"
+                printf "%s\\n" "$info" | grep -E "^(Repository|Name|Version)[[:space:]]*:"
+              done
+              echo
+              echo "CachyOS package metadata check: PASS"
+            ' 2>&1 | tee -a "$report"
 
       - name: Upload preflight report
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: kwin-6.8.1-${{ inputs.pkgrel }}-preflight-${{ inputs.snapshot_date }}
-          path: ${{ runner.temp }}/kwin-6.8.1-preflight-report.txt
+          name: kwin-6.8.1-${{ inputs.pkgrel }}-cachyos-${{ inputs.repo_variant }}-preflight
+          path: ${{ runner.temp }}/kwin-6.8.1-cachyos-preflight-report.txt
           if-no-files-found: warn
           retention-days: 30
