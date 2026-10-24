@@ -1,4 +1,4 @@
-name: Build CachyOS KWin 6.8.1 NO-TILES (v3)
+name: Manual baseline build — KWin 6.8.1 CachyOS v3
 
 on:
   workflow_dispatch:
@@ -22,10 +22,8 @@ jobs:
       EXPECTED_PATCH_SHA256: "6aae75198b0bd8514981bbdce121675b5d50f10638436e8e58980b2e9056171e"
 
     steps:
-      - name: Check out test branch
+      - name: Check out the repository
         uses: actions/checkout@v5
-        with:
-          ref: test
 
       - name: Verify KWin 6.8.1 source and reviewed patch
         shell: bash

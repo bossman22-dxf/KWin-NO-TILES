@@ -1,4 +1,4 @@
-name: Preflight KWin 6.8.1 for CachyOS
+name: Manual preflight — KWin 6.8.1 CachyOS
 
 on:
   workflow_dispatch:
@@ -39,10 +39,8 @@ jobs:
       EXPECTED_PATCH_SHA256: "6aae75198b0bd8514981bbdce121675b5d50f10638436e8e58980b2e9056171e"
 
     steps:
-      - name: Check out test branch
+      - name: Check out the repository
         uses: actions/checkout@v5
-        with:
-          ref: test
 
       - name: Verify the official KDE source and test patch applicability
         shell: bash

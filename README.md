@@ -1,211 +1,61 @@
-# KWin NO TILES
+# KWin NO-TILES for CachyOS
 
-KWin NO TILES is a small Arch Linux package patch for **KWin 6.7.5** that adds a setting to disable KWin's native tiling hooks while leaving the rest of KWin intact.
+KWin NO-TILES adds a setting to disable KWin's built-in native tiling while leaving the rest of KWin intact. It is intended for people who use an external tiling manager such as [PlasmaZones](https://github.com/fuddlesworth/PlasmaZones).
 
-The goal is to let another tool, specifically [**PlasmaZones**](https://github.com/fuddlesworth/PlasmaZones), own tiling behavior without KWin also displaying/using its own native tiling zones.
+## Current scope
 
-## What this patch changes
+- KWin source: KDE's stable KWin tarball.
+- Package source: the live CachyOS `cachyos-extra-v3` repository.
+- CPU target: x86-64-v3, tuned for Zen 2 (`-march=x86-64-v3 -mtune=znver2`).
+- Package name: `kwin-no-tiles`.
+- KWin config key: `[Windows] NativeTilingEnabled=false`.
+- Patch: `disable-native-tiling-6.8.patch`.
 
-This repository tracks the Arch `kwin` `PKGBUILD` plus one patch:
+The initial baseline tested by CI is KWin `6.8.1-2.1`. A successful build verifies compilation and package contents; it does **not** prove that the package has been runtime-tested in a live Plasma session. Releases explicitly say this.
 
-- `disable-native-tiling.patch`
+## What the patch changes
 
-The patch adds a KWin config option:
+The patch adds a KWin config option and a checkbox for enabling or disabling built-in window tiling. When disabled, it blocks KWin's native tiling entry points and releases existing native tile assignments, so an external tiler can manage window placement.
 
-```ini
-[Windows]
-NativeTilingEnabled=false
-```
+The setting is intended to leave ordinary window snapping separate. It does not force-change KDE's unrelated snapping settings.
 
-It also adds a checkbox in:
+## Automated build and release policy
 
-```text
-System Settings → Window Management → Window Behavior → Advanced
-→ Enable built-in window tiling
-```
+`.github/workflows/auto-release-cachyos-v3.yml` runs on a daily schedule or manual dispatch. It deliberately has **no push trigger**, so editing or importing repository files cannot accidentally start a long package build.
 
-When disabled, the patch blocks KWin native tiling entry points including:
+For each run it:
 
-- keyboard quick-tiling actions,
-- custom quick-tiling actions,
-- drag-to-edge quick tiling,
-- Shift-drag native custom tiling previews/zones,
-- custom tile zone lookup through `quickTileGeometry(Custom, ...)`.
+1. Queries the live KWin package version in CachyOS's v3 repository.
+2. Skips versions that already have a successful release and skips if the configured mirror reports an older version than the latest release.
+3. Authenticates the official KDE source tarball with its detached signature and the allowed KDE signing-key fingerprints.
+4. Requires the patch to apply with zero fuzz.
+5. Builds inside a CachyOS container, targeting x86-64-v3/Zen 2 rather than the GitHub runner CPU.
+6. Checks the built package name, version, `provides`/`conflicts` metadata, `kwin_wayland` binary, and the `NativeTilingEnabled` schema entry.
+7. Creates a versioned GitHub Release only after every previous check succeeds.
 
-This is intended for users replacing KWin native tiling with PlasmaZones or another tiling solution.
+The workflow never reuses a successful release tag. If source authentication, patch application, dependency resolution, compilation, or package-content checks fail, it publishes no package. Once a new release is successfully published, the workflow attempts to retain only the two most recent successful releases.
 
-## What this patch does not try to solve
+The separate `build-cachyos-kwin-6.8.1.yml` workflow is a manual-only baseline build that uploads a test artifact but does not publish a Release.
 
-This patch is specifically for **KWin 6.7.5**. It may not apply cleanly to other KWin versions.
+## Safe maintenance rules
 
-The normal KWin snapping settings are separate from native tiling. In particular, KDE's existing **Snap only when overlapping** setting is not force-changed by this patch. (Quadrant snapping is disabled by this)
+- Do not install a package only because compilation succeeded. Runtime testing on a live CachyOS Plasma session remains a separate step.
+- If the patch no longer applies cleanly to a newer KWin version, stop and update/review the patch rather than allowing fuzz.
+- If KDE changes its release-signing keys, add a verified fingerprint to `validpgpkeys` in `PKGBUILD` before trying to publish a new version.
+- If build dependencies or runtime dependencies change, update the recipe and `.SRCINFO` after review. A successful source build is not permission to ignore package metadata changes.
+- Keep the upstream stock KWin package cache available until the new package has been runtime-tested and a recovery route has been confirmed.
 
-## Repository contents
+## Files
 
-Minimal files needed to build the patched package:
+- `PKGBUILD`: Arch/CachyOS package recipe.
+- `.SRCINFO`: generated package metadata for repository tooling.
+- `disable-native-tiling-6.8.patch`: patch for KWin 6.8.x source, currently reviewed against 6.8.1.
+- `.github/scripts/query-cachyos-v3.sh`: live v3 repository query.
+- `.github/scripts/build-cachyos-v3.sh`: version-parameterized, checked build script.
+- `.github/workflows/auto-release-cachyos-v3.yml`: scheduled new-version check/build/release workflow.
+- `.github/workflows/build-cachyos-kwin-6.8.1.yml`: manual baseline build, no release.
+- `.github/workflows/preflight-kwin-6.8.1.yml`: manual source/patch/repository preflight.
 
-```text
-PKGBUILD
-.SRCINFO
-disable-native-tiling.patch
-LICENSE
-README.md
-.gitignore
-```
+## License
 
-Generated folders such as `src/` and `pkg/` are intentionally not committed. They are created by `makepkg` when building.
-
-## Requirements
-
-This is intended for Arch Linux or an Arch-based distro using `pacman`/`makepkg`.
-
-### THIS PATCH WAS BUILT ON AND FOR CACHYOS! <u>USE AT YOUR OWN RISK!</u> 
-
-You need the normal Arch build tools:
-
-```bash
-sudo pacman -S --needed base-devel git
-```
-
-`makepkg` will prompt for or report any missing KWin build dependencies.
-
-## Build and install
-
-Clone the repository:
-
-```bash
-git clone https://github.com/bossman22-dxf/KWin-NOTILES.git
-cd KWin-NOTILES
-```
-
-Build and install:
-
-```bash
-makepkg -Csi --skippgpcheck
-```
-
-Why `--skippgpcheck`? Some systems do not have the KDE release signing key imported. If you prefer to verify the upstream signature, import the missing key instead and omit `--skippgpcheck`.
-
-If you only want to build the package without installing it:
-
-```bash
-makepkg -Cs --skippgpcheck
-```
-
-Then install the generated package manually:
-
-```bash
-sudo pacman -U ./kwin-*.pkg.tar.zst
-```
-
-## Enable the no-native-tiling behavior
-
-After installing, either use System Settings:
-
-```text
-System Settings → Window Management → Window Behavior → Advanced
-→ uncheck "Enable built-in window tiling"
-```
-
-Or set it from the terminal:
-
-```bash
-kwriteconfig6 --file kwinrc --group Windows --key NativeTilingEnabled false
-qdbus6 org.kde.KWin /KWin reconfigure
-```
-
-If behavior does not change immediately, log out and back in, or reboot.
-
-Check the current value:
-
-```bash
-kreadconfig6 --file kwinrc --group Windows --key NativeTilingEnabled --default '<unset>'
-```
-
-Expected disabled value:
-
-```text
-false
-```
-
-If value above shows as ```'<unset>'``` then run
-```bash
-kwriteconfig6 --file kwinrc --group Windows --key NativeTilingEnabled false
-```
-
-
-## Prevent pacman from replacing the patched package
-
-Edit pacman config:
-
-```bash
-sudo nano /etc/pacman.conf
-```
-
-Under `[options]`, add `kwin` to `IgnorePkg`:
-
-```ini
-IgnorePkg = kwin
-```
-
-If you already have ignored packages, add `kwin` to the same line, for example:
-
-```ini
-IgnorePkg = package1 package2 kwin
-```
-
-Do **not** use `kwin-6.7.5-3`; pacman ignores package names, not package-version strings.
-
-## Verify the patched package is installed
-
-```bash
-pacman -Qi kwin
-```
-
-A locally built package commonly shows:
-
-```text
-Packager : Unknown Packager
-```
-
-Check that the installed KWin config schema contains the new option:
-
-```bash
-grep -RIn NativeTilingEnabled /usr/share/config.kcfg/kwin.kcfg
-```
-
-Expected output includes:
-
-```text
-<entry name="NativeTilingEnabled" type="Bool">
-```
-
-## Rebuild after changing the patch
-
-If you edit `disable-native-tiling.patch`, update the checksum in `PKGBUILD`:
-
-```bash
-sha256sum disable-native-tiling.patch
-```
-
-Put the new hash in `sha256sums`, then regenerate `.SRCINFO`:
-
-```bash
-makepkg --printsrcinfo > .SRCINFO
-```
-
-Then rebuild:
-
-```bash
-makepkg -Csi --skippgpcheck
-```
-
-## Roll back to the official package
-
-Remove `kwin` from `IgnorePkg` in `/etc/pacman.conf`, then reinstall KWin from your repos:
-
-```bash
-sudo pacman -S kwin
-```
-
-Log out and back in after reinstalling.
+The package recipe derives from the Arch KWin packaging recipe, so the included packaging license/attribution file is retained. The patch and automation should be reviewed independently when distributing the package.
