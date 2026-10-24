@@ -108,6 +108,24 @@ fi
 printf 'builder ALL=(root) NOPASSWD: /usr/bin/pacman\n' > /etc/sudoers.d/kwin-builder
 chmod 0440 /etc/sudoers.d/kwin-builder
 install -d -o builder -g builder /home/builder/build
+
+# makepkg verifies signatures against the builder's own GPG keyring, not pacman's
+# keyring. Set GNUPGHOME explicitly so root's keyring is never consulted.
+install -d -m 0700 -o builder -g builder /home/builder/.gnupg
+KDE_SIGNING_KEYS=(
+  E0A3EB202F8E57528E13E72FD7574483BB57B18D
+  0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D
+  D07BD8662C56CB291B316EB2F5675605C74E02CF
+  90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1
+  1FA881591C26B276D7A5518EEAAF29B42A678C20
+)
+for key in "${KDE_SIGNING_KEYS[@]}"; do
+  if ! runuser -u builder -- env HOME=/home/builder GNUPGHOME=/home/builder/.gnupg gpg --batch --list-keys "$key" >/dev/null 2>&1; then
+    runuser -u builder -- env HOME=/home/builder GNUPGHOME=/home/builder/.gnupg gpg --batch --keyserver hkps://keyserver.ubuntu.com --recv-keys "$key" \
+      || echo "::warning::Could not retrieve KDE key $key; source verification must still succeed before publishing." >&2
+  fi
+done
+
 cp -a /input/. /home/builder/build/
 chown -R builder:builder /home/builder/build
 cd /home/builder/build
@@ -117,9 +135,9 @@ sed -i \
   -e "s/^pkgrel=.*/pkgrel=${pkgrel}/" \
   PKGBUILD
 
-runuser -u builder -- makepkg --verifysource
-runuser -u builder -- makepkg --printsrcinfo > "$output/SRCINFO.generated"
-runuser -u builder -- makepkg --syncdeps --noconfirm --cleanbuild
+runuser -u builder -- env HOME=/home/builder GNUPGHOME=/home/builder/.gnupg makepkg --verifysource
+runuser -u builder -- env HOME=/home/builder GNUPGHOME=/home/builder/.gnupg makepkg --printsrcinfo > "$output/SRCINFO.generated"
+runuser -u builder -- env HOME=/home/builder GNUPGHOME=/home/builder/.gnupg makepkg --syncdeps --noconfirm --cleanbuild
 
 shopt -s nullglob
 packages=(/home/builder/build/*.pkg.tar.zst)
@@ -146,7 +164,8 @@ schema_path="$(grep -E '(^|/)kwin\.kcfg$' "$output/package-files.txt" | head -n 
   echo '::error::Could not find the installed KWin configuration schema.' >&2
   exit 1
 }
-bsdtar -xOf "$output/$(basename "$package")" "$schema_path" | grep -Fq 'NativeTilingEnabled' || {
+bsdtar -xOf "$output/$(basename "$package")" "$schema_path" > "$output/kwin.kcfg"
+grep -Fq 'NativeTilingEnabled' "$output/kwin.kcfg" || {
   echo '::error::NativeTilingEnabled was not found in the packaged KWin schema.' >&2
   exit 1
 }

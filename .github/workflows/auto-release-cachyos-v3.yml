@@ -56,7 +56,9 @@ jobs:
 
           if gh release view "$release_tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             assets="$(gh release view "$release_tag" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' 2>/dev/null || true)"
-            if printf '%s\n' "$assets" | grep -Fxq "$expected_asset"; then
+            if printf '%s\n' "$assets" | grep -Fxq "$expected_asset" \
+              && printf '%s\n' "$assets" | grep -Fxq 'build-report.txt' \
+              && printf '%s\n' "$assets" | grep -Fxq 'SHA256SUMS'; then
               echo "should_build=false" >> "$GITHUB_OUTPUT"
               echo "tag=$release_tag" >> "$GITHUB_OUTPUT"
               echo "reason=already-released" >> "$GITHUB_OUTPUT"
@@ -69,7 +71,7 @@ jobs:
           fi
 
           latest_tag="$(gh release list --repo "$GITHUB_REPOSITORY" --limit 100 --json tagName,publishedAt \
-            --jq 'map(select(.tagName | startswith("kwin-no-tiles-"))) | sort_by(.publishedAt) | reverse | .[0].tagName // ""')"
+            --jq 'map(select((.tagName | startswith("kwin-no-tiles-")) and (.tagName | endswith("-cachyos-v3")))) | sort_by(.publishedAt) | reverse | .[0].tagName // ""')"
           if [[ -n "$latest_tag" ]]; then
             latest_version="${latest_tag#kwin-no-tiles-}"
             latest_version="${latest_version%-cachyos-v3}"
@@ -180,7 +182,7 @@ jobs:
           set -euo pipefail
           mapfile -t old_tags < <(
             gh release list --repo "$GITHUB_REPOSITORY" --limit 100 --json tagName,publishedAt \
-              --jq 'map(select(.tagName | startswith("kwin-no-tiles-"))) | sort_by(.publishedAt) | reverse | .[2:][] | .tagName'
+              --jq 'map(select((.tagName | startswith("kwin-no-tiles-")) and (.tagName | endswith("-cachyos-v3")))) | sort_by(.publishedAt) | reverse | .[2:][] | .tagName'
           )
           for tag in "${old_tags[@]}"; do
             [[ -n "$tag" ]] || continue
